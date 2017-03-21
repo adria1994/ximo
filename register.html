@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <title>Register Ajax</title>
 
@@ -40,8 +39,8 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-                    <li><a href="login.php">Login</a></li>
-                    <li><a href="register.php">Register</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <span class="caret"></span>
@@ -63,11 +62,10 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Register</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
-                            {{ csrf_field() }}
+                        <form class="form-horizontal" role="form" method="POST" action="#">
 
                             <div class="form-group">
-                                <label for="name" class="col-md-4 control-label">Name</label>
+                                <label for="name" class="col-md-4 control-label">Usuario</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control" name="name" value="" required autofocus>
@@ -75,7 +73,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                                <label for="email" class="col-md-4 control-label">Direccion correo electronico</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control" name="email" value="" required>
@@ -84,21 +82,39 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="password" class="col-md-4 control-label">Password</label>
-
+                                <label for="password" class="col-md-4 control-label">Contraseña</label>
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control" name="password" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                                <label for="password-confirm" class="col-md-4 control-label">Confirmar password</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="bornDate" class="col-md-4 control-label">Fecha nacimiento</label>
+                                <div class="col-md-6">
+                                    <input id="bornDate" type="date" class="form-control" name="bornDate" value="" required>
 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="countryBorn" class="col-md-4 control-label">Pais nacimiento</label>
+                                <div class="col-md-6">
+                                    <select id="countryBorn" class="form-control" name="bornDate"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cityBorn" class="col-md-4 control-label">Ciudad nacimiento</label>
+                                <div class="col-md-6">
+                                    <select id="cityBorn" class="form-control" name="bornDate"></select>
+
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
@@ -115,5 +131,6 @@
 
 </div>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </body>
 </html>
