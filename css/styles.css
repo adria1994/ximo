@@ -1,0 +1,40 @@
+#registrar, #login{
+    display: none;
+}
+body{
+    background-color: #8c8c8c;
+}
+a:hover{
+    text-decoration: none;
+}
+.logo{
+    font-family:Courier New;
+    color: white;
+
+}
+#showLogin,#showRegister{
+    color: white;
+    cursor: pointer;
+}
+.navbar{
+    background-color: #000000;
+}
+.icons{
+    cursor: pointer;
+    color: black;
+    max-width: 35px;
+    margin-left: 15px;
+}
+.btn-info{
+    color: black;
+    background-color: #e1e1e1;
+    border-color: #e1e1e1;
+}
+.btn-info:focus{
+    color: black;
+    background-color: white;
+    border-color: white;
+}
+#questionForm{
+    display: none;
+}
