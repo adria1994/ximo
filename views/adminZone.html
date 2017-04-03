@@ -16,7 +16,7 @@
     <div class="row">
         <div class="fixed-table-toolbar">
             <div class="columns columns-right btn-group pull-right ">
-                <button class="btn btn-default" type="button" name="refresh" aria-label="refresh" title="Refresh">
+                <button class="btn btn-default" id="refreshPage"type="button" name="refresh" aria-label="refresh" title="Refresh">
                     <i class="glyphicon glyphicon-refresh icon-refresh"></i>
                 </button>
                 <button class="btn btn-default" id="addQuestion" type="button" name="toggle" aria-label="toggle" title="Toggle">
@@ -32,7 +32,7 @@
             <tr>
                 <th>Tema</th>
                 <th>Enunciado</th>
-                <th></th>
+                <th>Acción</th>
             </tr>
             </thead>
             <tbody class="questions">
@@ -42,6 +42,7 @@
 </div>
 <div class="container" id="questionForm">
     <form role="form" method="POST" action="#">
+        <div id="errorForm"></div>
 
         <div class="form-group">
 

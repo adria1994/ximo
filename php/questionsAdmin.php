@@ -34,8 +34,19 @@ function insertQuestion($mysqli){
     $a4 = $_POST["Answer4"];
     $correctAnswer = $_POST["CorrectAnswer"];
     $idTheme = $_POST["IdTheme"];
-    $result = $mysqli->query("INSERT INTO question VALUES('$id','$statement','$a1','$a2','$a3','$a4','$correctAnswer','$idTheme')");
-    $success = ($result == true ? true : false);
-    echo $mysqli->error;
-     $mysqli = null;
+    try {
+        $sql = "INSERT INTO question VALUES($id,'$statement','$a1','$a2','$a3','$a4','$correctAnswer',$idTheme)";
+        $query = $mysqli->prepare($sql);
+        var_dump($query);
+        if($query->execute()){
+            echo true;
+        }else{
+            echo false;
+        }
+
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
+
 }
