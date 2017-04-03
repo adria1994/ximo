@@ -17,13 +17,13 @@ $('#bornDate').on('keyup change',function () {
 
 function checkEmail(){
     var email = $('#email').val();
-    if(email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)){
+    if(email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-ZñÑ]{2,3}$/)){
         $('#email').addClass('ui-state-success');
         $('.emailErrors').removeClass('ui-state-error').empty();
 
     }else{
         $('#email').addClass('ui-state-error');
-        $('.emailErrors').addClass('ui-state-error').html('El email esta mal formado');
+        $('.emailErrors').addClass('ui-state-error').html('El email esta mal formado. No puede contener caracteres extraños.');
 
     }
 }
@@ -41,12 +41,12 @@ function checkUser(){
 
 function checkPassword(){
     var password = $('#password').val();
-    if(password.match(/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/)){
+    if(password.match(/^(?=.*\d)(?=.*[a-z])[0-9a-zA-ZñÑ]{6,}$/)){
         $('#password').removeClass('ui-state-error');
         $('.passwordErrors').removeClass('ui-state-error').empty();
     }else{
         $('#password').addClass('ui-state-error');
-        $('.passwordErrors').addClass('ui-state-error').html('La contraseña debe tener 6 letras 1 un numero.');
+        $('.passwordErrors').addClass('ui-state-error').html('La contraseña debe tener 6 letras 1 un numero. No puede contener caracteres extraños.');
     }
 }
 function checkDate(){
