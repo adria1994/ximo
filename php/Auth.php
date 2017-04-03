@@ -1,9 +1,6 @@
 <?php
 
-foreach (glob("src/*.php") as $filename)
-{
-    include $filename;
-}
+foreach (glob("lib/JWT/*.php") as $filename) include $filename;
 
 use Firebase\JWT\JWT;
 
