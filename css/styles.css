@@ -1,5 +1,8 @@
-#registrar, #login{
-    display: none;
+.nav{
+    z-index: 0;
+}
+.admin{
+    background-color: #ffffff; !important;
 }
 body{
     background-color: #8c8c8c;
@@ -20,9 +23,6 @@ a:hover{
     background-color: #000000;
 }
 .icons{
-    cursor: pointer;
-    color: black;
-    max-width: 35px;
     margin-left: 15px;
 }
 .btn-info{

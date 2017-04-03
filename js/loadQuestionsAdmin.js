@@ -36,10 +36,12 @@ function loadQuestions() {
                $('.questions').append('<tr>' +
                    '<td>' + item.Name + '</td>' +
                    '<td>' + item.Statement + '</td>' +
-                   '<td></td>'+
-                   '<td> <button class="btn btn-info icons"> <i class="fa fa-trash" aria-hidden="true"></i></button>' +
-                   '<button class="btn btn-info icons">  <i class="fa fa-pencil" aria-hidden="true"></i></a> </td>' +
-                   '</tr>');
+                   '<td> <button class="btn btn-default" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
+                   '<i class="glyphicon glyphicon-trash icon-trash"></i>'+
+                    '</button>' +
+                   '<button class="btn btn-default icons" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
+                   '<i class="glyphicon glyphicon-pencil icon-pencil "></i>'+
+                   '</button></td>');
             })
         }
     })
