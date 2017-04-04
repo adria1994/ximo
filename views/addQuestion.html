@@ -1,0 +1,51 @@
+
+<div class="col-md-12" id="questionForm">
+    <form role="form" method="POST" action="#">
+        <div id="errorForm"></div>
+
+        <div class="form-group">
+
+            <label for="enunciado" class="control-label">Enunciado pregunta</label>
+            <input id="enunciado" type="text" class="form-control" name="name" value="" autocomplete="off" required >
+        </div>
+        <div class="form-group">
+
+            <label for="respuesta1" class="control-label">Respuesta posible 1</label>
+            <input id="respuesta1" type="text" class="form-control" name="name" value="" autocomplete="off" required >
+        </div>
+        <div class="form-group">
+
+            <label for="respuesta2" class="control-label">Respuesta posible 2</label>
+            <input id="respuesta2" type="text" class="form-control" name="name" value="" autocomplete="off" required >
+        </div>
+        <div class="form-group">
+
+            <label for="respuesta3" class="control-label">Respuesta posible 3</label>
+            <input id="respuesta3" type="text" class="form-control" name="name" value="" autocomplete="off" required >
+        </div>
+        <div class="form-group">
+
+            <label for="respuesta4" class="control-label">Respuesta posible 4</label>
+            <input id="respuesta4" type="text" class="form-control" name="name" value="" autocomplete="off" required >
+        </div>
+        <div class="form-group">
+
+            <label for="respuestaCorrecta" class="control-label">Respuesta correcta</label>
+            <select id="respuestaCorrecta" class="form-control" name="name" >
+                <option value="1">Respuesta posible 1</option>
+                <option value="2">Respuesta posible 2</option>
+                <option value="3">Respuesta posible 3</option>
+                <option value="4">Respuesta posible 4</option>
+            </select>
+        </div>
+        <div class="form-group">
+
+            <label for="tema" class="control-label">Tema</label>
+            <select id="tema" class="form-control" name="name" required >
+                <div class="nameErrors"></div>
+            </select>
+        </div>
+    </form>
+    <button class="btn btn-info" id="recordQuestion">Añadir pregunta</button>
+    <button class="btn btn-danger" id="recordQuestion">Añadir pregunta</button>
+</div>
