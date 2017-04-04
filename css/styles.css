@@ -4,6 +4,9 @@
 .ui-dialog-content {
     z-index: 10; !important;
 }
+.ui-datepicker{
+    z-index: 9999999999999999 !important;
+}
 .admin{
     background-color: #ffffff; !important;
 }
@@ -12,6 +15,9 @@
 }
 body{
     background-color: #8c8c8c;
+}
+.height{
+    height: 50px;
 }
 a:hover{
     text-decoration: none;
@@ -41,6 +47,4 @@ a:hover{
     background-color: white;
     border-color: white;
 }
-#questionForm{
-    display: none;
-}
+

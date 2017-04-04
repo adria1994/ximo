@@ -14,7 +14,7 @@
     <h2>Administración de preguntas</h2>
     <hr>
     <div class="row">
-        <div class="fixed-table-toolbar">
+        <div class="fixed-table-toolbar height">
             <div class="columns columns-right btn-group pull-right ">
                 <button class="btn btn-default" id="refreshPage"type="button" name="refresh" aria-label="refresh" title="Refresh">
                     <i class="glyphicon glyphicon-refresh icon-refresh"></i>
@@ -27,70 +27,18 @@
                 <input class="form-control" type="text" placeholder="Search">
             </div>
         </div>
-        <table class="table table-condensed table-striped table-bordered">
-            <thead>
-            <tr>
-                <th>Tema</th>
-                <th>Enunciado</th>
-                <th>Acción</th>
-            </tr>
-            </thead>
-            <tbody class="questions">
-            </tbody>
-        </table>
+        <div id="content">
+
+        </div>
     </div>
-</div>
-<div class="container" id="questionForm">
-    <form role="form" method="POST" action="#">
-        <div id="errorForm"></div>
 
-        <div class="form-group">
-
-            <label for="enunciado" class="control-label">Enunciado pregunta</label>
-            <input id="enunciado" type="text" class="form-control" name="name" value="" autocomplete="off" required >
-            <div class="nameErrors"></div>
-        </div>
-        <div class="form-group">
-
-            <label for="respuesta1" class="control-label">Respuesta posible 1</label>
-            <input id="respuesta1" type="text" class="form-control" name="name" value="" autocomplete="off" required >
-            <div class="nameErrors"></div>
-        </div>
-        <div class="form-group">
-
-            <label for="respuesta2" class="control-label">Respuesta posible 2</label>
-            <input id="respuesta2" type="text" class="form-control" name="name" value="" autocomplete="off" required >
-            <div class="nameErrors"></div>
-        </div>
-        <div class="form-group">
-
-            <label for="respuesta3" class="control-label">Respuesta posible 3</label>
-            <input id="respuesta3" type="text" class="form-control" name="name" value="" autocomplete="off" required >
-            <div class="nameErrors"></div>
-        </div>
-        <div class="form-group">
-
-            <label for="respuesta4" class="control-label">Respuesta posible 4</label>
-            <input id="respuesta4" type="text" class="form-control" name="name" value="" autocomplete="off" required >
-            <div class="nameErrors"></div>
-        </div>
-        <div class="form-group">
-
-            <label for="respuesCorrecta" class="control-label">Respuesta correcta</label>
-            <input id="respuesCorrecta" type="text" class="form-control" name="name" value="" autocomplete="off" required >
-            <div class="nameErrors"></div>
-        </div>
-        <div class="form-group">
-
-            <label for="tema" class="control-label">Tema</label>
-            <select id="tema" class="form-control" name="name" required >
-            <div class="nameErrors"></div>
-        </div>
-    </form>
 </div>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="../js/jqueryUI/jquery-ui.min.js"></script>
 <script src="../js/loadQuestionsAdmin.js"></script>
+<script src="../js/addQuestionAdmin.js"></script>
+<script src="../js/editQuestionAdmin.js"></script>
+<script src="../js/removeQuestionAdmin.js"></script>
 </body>
 </html>

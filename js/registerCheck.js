@@ -19,6 +19,7 @@ function checkEmail(){
     var email = $('#email').val();
     if(email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-ZñÑ]{2,3}$/)){
         $('#email').addClass('ui-state-success');
+        $('#email').removeClass('ui-state-error');
         $('.emailErrors').removeClass('ui-state-error').empty();
     }else{
         $('#email').addClass('ui-state-error');
