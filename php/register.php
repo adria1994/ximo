@@ -33,7 +33,7 @@ function getCity($mysqli, $country) {
     echo json_encode($array);
 }
 
-function regiter($name, $password, $password_confirm, $email, $bornDate, $bornCountry, $bornCity) {
+function register($name, $password, $password_confirm, $email, $bornDate, $bornCountry, $bornCity) {
     $response[] = $name;
     $response[] = $password;
     $response[] = $password_confirm;

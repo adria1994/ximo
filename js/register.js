@@ -166,7 +166,7 @@ function register(){
             funcion: 'register',
             name: $('#name').val(),
             password: $('#password').val(),
-            password_confirmation: $('#password_confirmation').val(),
+            password_confirmation: $('#password-confirm').val(),
             email: $('#email').val(),
             bornDate: $('#bornDate').val(),
             bornCountry: $('#bornCountry option:selected').attr('name'),
