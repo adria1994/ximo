@@ -1,3 +1,6 @@
+if (localStorage.auth == 1) {
+    checkToken();
+}
 $('document').ready(function(){
     loadCountries();
     $("#bornDate").datepicker({
@@ -89,20 +92,61 @@ $( "#register" ).dialog({
     ]
 });
 $( "#showLogin" ).click(function() {
+    $('#usuario').val('');
+    $('#contraseña').val('');
+    $('.usuarioErrors').html('');
     $('#login').dialog('option', 'title', 'Iniciar sesion');
-    $( "#register" ).dialog( "isOpen" ) == true ? "" : $( "#login" ).dialog( "open" );;
+    if($( "#register" ).dialog( "isOpen" ) != true) $( "#login" ).dialog( "open" );
 
 });
 $( "#showRegister" ).click(function() {
     if(!$( "#login" ).dialog( "isOpen" ) == true){
-        $('#register').dialog('option', 'title', 'Nuevo registro');
-        $( "#register" ).dialog( "open" )
-
+        $('#register').dialog('option', 'title', 'Nuevo registro').dialog( "open" );
     }
 
 });
 
 function checkLogin(){
+    $.ajax({
+        type: 'POST',
+        url: '../php/login.php',
+        dataType: 'json',
+        data: {
+            user: $('#usuario').val(),
+            pass: $('#contraseña').val()
+        },
+        success: function (data) {
+            if(data.auth == 1) {
+                localStorage.auth = 1;
+                localStorage.username = data.username;
+                localStorage.token = data.token;
+                $('.usuarioErrors').html('');
+            } else {
+                localStorage.auth = 0;
+                $('.usuarioErrors').html('Las creedenciales no coinciden');
+            }
+        }
+    });
     return true;
+}
 
+function checkToken(){
+    $.ajax({
+        type: 'POST',
+        url: '../php/checkToken.php',
+        data: {
+            token: localStorage.token
+        },
+        success: function (data) {
+            console.log(data);
+            if(data.auth == 1) {
+                console.log(data.token);
+                localStorage.auth = 1;
+                localStorage.token = data.token;
+            } else {
+                localStorage.auth = 0;
+            }
+        }
+    });
+    return true;
 }
