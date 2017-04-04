@@ -8,6 +8,10 @@ $('document').ready(function(){
 $('#addQuestion').click(function () {
     createQuestion();
 })
+$('#refreshPage').click(function(){
+    location.reload();
+
+});
 function loadThemes(){
     $.ajax({
         type: 'POST',
@@ -63,29 +67,69 @@ $('#questionForm').dialog({
         {
             text:"Añadir Pregunta",
             click: function(){
-                recordQuestion();
+                checkQuestions() == true ? recordQuestion() : $('#errorForm').addClass('alert alert-danger').append('Los campos no pueden estar vacios');
             }
+
 
         }
     ]
 });
+function checkQuestions(){
+    if($('#enunciado').length == 0 ||
+        $('#respuesta1').length == 0 ||
+        $('#respuesta2').length == 0 ||
+        $('#respuesta3').length == 0 ||
+        $('#respuesta4').length == 0 ||
+        $('#respuesCorrecta').length == 0){
+        return false;
+    }
+    return true;
+
+}
 function recordQuestion(){
-    console.log('recordquestion');
     $.ajax({
         type: 'POST',
         data:{
             funcion: 'insertQuestion',
             Id: 'default',
-            Statement:$('#enunciado').val(),
-            Answer1:$('#respuesta1').val(),
-            Answer2:$('#respuesta2').val(),
-            Answer3:$('#respuesta3').val(),
-            Answer4:$('#respuesta4').val(),
+            Statement: $('#enunciado').val(),
+            Answer1: $('#respuesta1').val(),
+            Answer2: $('#respuesta2').val(),
+            Answer3: $('#respuesta3').val(),
+            Answer4: $('#respuesta4').val(),
             CorrectAnswer:$('#respuesCorrecta').val(),
             IdTheme:$('#tema').val()
         },
-        url: '../php/questionsAdmin.php'
+        url: '../php/questionsAdmin.php',
+        success: function(data){
+
+            if(data){
+                $('.questions').append('<tr>' +
+                    '<td>' + $('#tema option:selected').html() + '</td>' +
+                    '<td>' + $('#enunciado').val() + '</td>' +
+                    '<td> <button class="btn btn-default" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
+                    '<i class="glyphicon glyphicon-trash icon-trash"></i>'+
+                    '</button>' +
+                    '<button class="btn btn-default icons" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
+                    '<i class="glyphicon glyphicon-pencil icon-pencil "></i>'+
+                    '</button></td>');
+                closeDialog("#questionForm");
+                cleanInputsOfDialog();
+            }
+        }
     })
+}
+function cleanInputsOfDialog() {
+    $('#enunciado').empty()
+    $('#respuesta1').empty()
+    $('#respuesta2').empty()
+    $('#respuesta3').empty()
+    $('#respuesta4').empty()
+    $('#respuesCorrecta').empty()
+}
+
+function closeDialog(element){
+    $(element).dialog("close");
 }
 function createQuestion() {
     $('#questionForm').dialog('option', 'title', 'Alta pregunta');
