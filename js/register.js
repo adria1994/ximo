@@ -9,10 +9,14 @@ $('document').ready(function(){
         changeYear: true,
         yearRange: "-100:+0"
     });
-
-
 });
 $('#countryBorn').change(loadCity);
+$('#contraseña').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+        checkLogin();
+    }
+});
 
 function loadCountries() {
     $.ajax({
@@ -52,8 +56,9 @@ function loadCity() {
 }
 
 $( "#login" ).dialog({
-    autoOpen: false,
+    autoOpen: localStorage.auth != 1,
     resizable: false,
+    title: 'Iniciar sesion',
     draggable: false,
     modal: true,
     buttons: [
@@ -74,6 +79,7 @@ $( "#register" ).dialog({
     autoOpen: false,
     resizable: false,
     draggable: false,
+    title: 'Nuevo registro',
     modal: true,
     width: 600,
     height: 535,
@@ -85,8 +91,7 @@ $( "#register" ).dialog({
             }
         },
         {
-            text:"Registrar",
-
+            text:"Registrar"
         }
 
     ]
@@ -95,14 +100,11 @@ $( "#showLogin" ).click(function() {
     $('#usuario').val('');
     $('#contraseña').val('');
     $('.usuarioErrors').html('');
-    $('#login').dialog('option', 'title', 'Iniciar sesion');
-    if($( "#register" ).dialog( "isOpen" ) != true) $( "#login" ).dialog( "open" );
+    if($( "#register" ).dialog( "isOpen" ) != true) $( "#login" ).dialog("open");
 
 });
 $( "#showRegister" ).click(function() {
-    if(!$( "#login" ).dialog( "isOpen" ) == true){
-        $('#register').dialog('option', 'title', 'Nuevo registro').dialog( "open" );
-    }
+    if(!$( "#login" ).dialog( "isOpen" ) == true) $('#register').dialog("open");
 
 });
 
@@ -120,10 +122,12 @@ function checkLogin(){
                 localStorage.auth = 1;
                 localStorage.username = data.username;
                 localStorage.token = data.token;
-                $('.usuarioErrors').html('');
+                $( "#login" ).dialog("close");
+                $('.usuarioErrors').removeClass('ui-state-error').html('');
             } else {
                 localStorage.auth = 0;
-                $('.usuarioErrors').html('Las creedenciales no coinciden');
+                localStorage.token = '';
+                $('.usuarioErrors').addClass('ui-state-error').html('Las creedenciales no coinciden.');
             }
         }
     });
@@ -134,17 +138,19 @@ function checkToken(){
     $.ajax({
         type: 'POST',
         url: '../php/checkToken.php',
+        dataType: 'json',
         data: {
             token: localStorage.token
         },
         success: function (data) {
-            console.log(data);
             if(data.auth == 1) {
                 console.log(data.token);
                 localStorage.auth = 1;
                 localStorage.token = data.token;
+                window.location.href = '#';
             } else {
                 localStorage.auth = 0;
+                localStorage.token = '';
             }
         }
     });

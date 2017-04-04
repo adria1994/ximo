@@ -20,11 +20,9 @@ function checkEmail(){
     if(email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-ZñÑ]{2,3}$/)){
         $('#email').addClass('ui-state-success');
         $('.emailErrors').removeClass('ui-state-error').empty();
-
     }else{
         $('#email').addClass('ui-state-error');
         $('.emailErrors').addClass('ui-state-error').html('El email esta mal formado. No puede contener caracteres extraños.');
-
     }
 }
 function checkUser(){
