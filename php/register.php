@@ -8,6 +8,15 @@ switch ($_POST['funcion']){
     case 'getCountry';
         getCountry($mysqli);
         break;
+    case 'register':
+        register($_POST['name'],
+            $_POST['password'],
+            $_POST['password_confirmation'],
+            $_POST['email'],
+            $_POST['bornDate'],
+            $_POST['bornCountry'],
+            $_POST['bornCity']);
+        break;
 }
 
 function getCountry($mysqli) {
@@ -24,5 +33,17 @@ function getCity($mysqli, $country) {
     echo json_encode($array);
 }
 
+function regiter($name, $password, $password_confirm, $email, $bornDate, $bornCountry, $bornCity) {
+    $response[] = $name;
+    $response[] = $password;
+    $response[] = $password_confirm;
+    $response[] = $email;
+    $response[] = $bornDate;
+    $response[] = $bornCountry;
+    $response[] = $bornCity;
+
+    echo json_encode($response);
+
+}
 
 

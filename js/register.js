@@ -12,10 +12,7 @@ $('document').ready(function(){
 });
 $('#countryBorn').change(loadCity);
 $('#contraseña').keyup(function(e){
-    if(e.keyCode == 13)
-    {
-        checkLogin();
-    }
+    if(e.keyCode == 13) checkLogin();
 });
 
 function loadCountries() {
@@ -60,7 +57,7 @@ $( "#login" ).dialog({
     resizable: false,
     title: 'Iniciar sesion',
     draggable: false,
-    modal: true,
+    modal: false,
     buttons: [
         {
             text: "Cancelar",
@@ -80,7 +77,7 @@ $( "#register" ).dialog({
     resizable: false,
     draggable: false,
     title: 'Nuevo registro',
-    modal: true,
+    modal: false,
     width: 600,
     height: 535,
     buttons: [
@@ -91,7 +88,8 @@ $( "#register" ).dialog({
             }
         },
         {
-            text:"Registrar"
+            text:"Registrar",
+            click:register
         }
 
     ]
@@ -100,12 +98,13 @@ $( "#showLogin" ).click(function() {
     $('#usuario').val('');
     $('#contraseña').val('');
     $('.usuarioErrors').html('');
-    if($( "#register" ).dialog( "isOpen" ) != true) $( "#login" ).dialog("open");
+    if($( "#register" ).dialog( "isOpen" ) == true) $('#register').dialog("close");
+    $( "#login" ).dialog("open");
 
 });
 $( "#showRegister" ).click(function() {
-    if(!$( "#login" ).dialog( "isOpen" ) == true) $('#register').dialog("open");
-
+    if($( "#login" ).dialog( "isOpen" ) == true) $('#login').dialog("close");
+    $( "#register" ).dialog("open");
 });
 
 function checkLogin(){
@@ -152,6 +151,37 @@ function checkToken(){
                 localStorage.auth = 0;
                 localStorage.token = '';
             }
+        }
+    });
+    return true;
+}
+
+function register(){
+    $.ajax({
+        type: 'POST',
+        url: '../php/register.php',
+        dataType: 'json',
+        data: {
+            funcion: 'register',
+            name: $('#name').val(),
+            password: $('#password').val(),
+            password_confirmation: $('#password_confirmation').val(),
+            email: $('#email').val(),
+            bornDate: $('#bornDate').val(),
+            bornCountry: $('#bornCountry option:selected').attr('name'),
+            bornCity: $('#bornCity').attr('name')
+        },
+        success: function (data) {
+            console.log(data);
+            // if(data.auth == 1) {
+            //     console.log(data.token);
+            //     localStorage.auth = 1;
+            //     localStorage.token = data.token;
+            //     window.location.href = '#';
+            // } else {
+            //     localStorage.auth = 0;
+            //     localStorage.token = '';
+            // }
         }
     });
     return true;
