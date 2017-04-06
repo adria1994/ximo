@@ -1,6 +1,9 @@
 /**
  * Created by adria on 4/04/17.
  */
+$('document').ready(function(){
+    loadThemes();
+});
 function checkQuestions(){
     var bool = true;
     if($('#enunciado').val().length == 0){ bool = false }
@@ -9,9 +12,39 @@ function checkQuestions(){
     if($('#respuesta3').val().length == 0){ bool = false }
     if($('#respuesta4').val().length == 0){ bool = false }
     return bool;
-
-
 }
+function loadThemes(){
+    $.ajax({
+        type: 'POST',
+        data: {
+            funcion: 'loadThemes'
+        },
+        url: '../php/questionsAdmin.php',
+        success: function(data) {
+            data = JSON.parse(data);
+            data.forEach(function (item) {
+                $('#tema').append("<option value='"+item.Id+"'>"+item.Name+"</option>");
+            })
+        }
+    });
+}
+$('#createQuestion').click(function () {
+    console.log("hola");
+    if(checkQuestions()){
+        console.log("check done");
+        $('#errorForm').removeClass('alert alert-danger').empty();
+        recordQuestion();
+        clearForm();
+        $('#content').load('loadQuestions.js');
+    }else{
+        $('#errorForm').addClass('alert alert-danger').html('Los campos no pueden estar vacios');
+
+
+    }
+})
+$('#cancel').click(function(){
+    $('#content').load('#loadQuestions');
+})
 function recordQuestion(){
     $.ajax({
         type: 'POST',
@@ -39,8 +72,7 @@ function recordQuestion(){
                     '<button class="btn btn-default icons" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
                     '<i class="glyphicon glyphicon-pencil icon-pencil "></i>'+
                     '</button></td>');
-                closeDialog("#questionForm");
-                cleanInputsOfDialog();
+                $('#content').load('loadQuestions.html');
             }
         }
     })
