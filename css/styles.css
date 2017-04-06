@@ -37,14 +37,4 @@ a:hover{
 .icons{
     margin-left: 15px;
 }
-.btn-info{
-    color: black;
-    background-color: #e1e1e1;
-    border-color: #e1e1e1;
-}
-.btn-info:focus{
-    color: black;
-    background-color: white;
-    border-color: white;
-}
 

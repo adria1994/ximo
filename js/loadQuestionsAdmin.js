@@ -3,30 +3,15 @@
  */
 $('document').ready(function(){
    loadQuestions();
-   loadThemes();
 });
 $('#addQuestion').click(function () {
     createQuestion();
 })
+
 $('#refreshPage').click(function(){
     location.reload();
 
 });
-function loadThemes(){
-    $.ajax({
-        type: 'POST',
-        data: {
-            funcion: 'loadThemes'
-        },
-        url: '../php/questionsAdmin.php',
-        success: function(data) {
-            data = JSON.parse(data);
-            data.forEach(function (item) {
-                $('#tema').append("<option value='"+item.Id+"'>"+item.Name+"</option>");
-            })
-        }
-    });
-}
 function loadQuestions() {
     $('#content').load('loadQuestions.html');
     $.ajax({
@@ -51,49 +36,12 @@ function loadQuestions() {
         }
     });
 }
-$('#questionForm').dialog({
-    autoOpen: false,
-    resizable: false,
-    draggable: false,
-    modal: true,
-    width: 600,
-    height: 535,
-    buttons:[
-        {
-            text: "Cancelar",
-            click: function() {
-                $( this ).dialog( "close" );
-            }
-        },
-        {
-            text:"Añadir Pregunta",
-            click: function(){
-                if(checkQuestions()){
-                    $('#errorForm').removeClass('alert alert-danger').empty();
-                    recordQuestion();
-                    clearForm();
-                }else{
-                    $('#errorForm').addClass('alert alert-danger').html('Los campos no pueden estar vacios');
-
-
-                }
-
-            }
-
-
-
-        }
-    ]
-});
 
 
 function closeDialog(element){
     $(element).dialog("close");
 }
 function createQuestion() {
-   /* $('#questionForm').dialog('option', 'title', 'Alta pregunta');
-    $('#questionForm').dialog("open");*/
-   console.log("hola");
    $('#content').load('addQuestion.html');
 
 }
