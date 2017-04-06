@@ -47,7 +47,7 @@ function loadCity() {
             $('#cityBorn').html('');
             data = JSON.parse(data);
             data.forEach(function(item){
-                $('#cityBorn').append("<option value='"+item.Code+"'>"+item.Name+"</option>");
+                $('#cityBorn').append("<option value='"+item.Id+"'>"+item.Name+"</option>");
             });
         }
     });
@@ -169,20 +169,19 @@ function register(){
             password_confirmation: $('#password-confirm').val(),
             email: $('#email').val(),
             bornDate: $('#bornDate').val(),
-            bornCountry: $('#bornCountry option:selected').attr('name'),
-            bornCity: $('#bornCity').attr('name')
+            bornCountry: $('#countryBorn').find('option:selected').val(),
+            bornCity: $('#cityBorn').find('option:selected').val()
         },
         success: function (data) {
             console.log(data);
-            // if(data.auth == 1) {
-            //     console.log(data.token);
-            //     localStorage.auth = 1;
-            //     localStorage.token = data.token;
-            //     window.location.href = '#';
-            // } else {
-            //     localStorage.auth = 0;
-            //     localStorage.token = '';
-            // }
+            if(data.auth == 1) {
+                localStorage.auth = 1;
+                localStorage.token = data.token;
+                window.location.href = '#';
+            } else {
+                localStorage.auth = 0;
+                localStorage.token = '';
+            }
         }
     });
     return true;
