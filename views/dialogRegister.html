@@ -1,0 +1,92 @@
+<form role="form" method="POST" action="#">
+
+    <div class="form-group">
+
+        <label for="name" class="control-label">Usuario</label>
+        <input id="name" type="text" class="form-control" name="name" value="" autocomplete="off" required >
+        <div class="nameErrors"></div>
+    </div>
+
+    <div class="form-group">
+        <label for="password" class="control-label">Password</label>
+        <input id="password" type="password" class="form-control" name="password" required>
+        <div class="passwordErrors"></div>
+    </div>
+
+    <div class="form-group">
+        <label for="password-confirm" class="control-label">Confirmar password</label>
+        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+        <div class="passwordConfirmErrors"></div>
+    </div>
+
+    <div class="form-group">
+        <label for="email" class="control-label">Direccion correo electronico</label>
+        <input id="email" type="email" class="form-control" name="email" autocomplete="off" value="" required>
+        <div class="emailErrors"></div>
+    </div>
+
+    <div class="form-group">
+        <label for="bornDate" class="control-label">Fecha nacimiento</label>
+        <input id="bornDate" placeholder="mm/dd/yy" type="text" class="form-control" name="bornDate" required>
+        <div class="dateErrors"></div>
+    </div>
+    <div class="form-group">
+        <label for="countryBorn" class="control-label">Pais nacimiento</label>
+        <select id="countryBorn" class="form-control" name="bornCountry" ></select>
+    </div>
+    <div class="form-group">
+        <label for="cityBorn" class="control-label">Ciudad nacimiento</label>
+        <select id="cityBorn" class="form-control" name="bornCity" ></select>
+    </div>
+</form>
+<script>
+    $('document').ready(function(){
+        loadCountries();
+        $("#bornDate").datepicker({
+            dateFormat: 'mm/dd/yy',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-100:+0",
+
+        });
+    });
+    $('#countryBorn').change(loadCity);
+
+    function loadCountries() {
+        $.ajax({
+            type: 'POST',
+            url: '../php/register.php',
+            // dataType: 'json',
+            data: {
+                funcion: 'getCountry'
+            },
+            success: function (data) {
+                data = JSON.parse(data);
+                data.forEach(function(item){
+                    $('#countryBorn').append("<option value='"+item.Code+"'>"+item.Name+"</option>");
+                });
+                loadCity();
+            }
+        });
+    }
+
+    function loadCity() {
+        $.ajax({
+            type: 'POST',
+            url: '../php/register.php',
+            // dataType: 'json',
+            data: {
+                funcion: 'getCity',
+                country: $('#countryBorn').val()
+            },
+            success: function (data) {
+                $('#cityBorn').html('');
+                data = JSON.parse(data);
+                data.forEach(function(item){
+                    $('#cityBorn').append("<option value='"+item.Id+"'>"+item.Name+"</option>");
+                });
+            }
+        });
+    }
+</script>
+<script src="../js/registerCheck.js"></script>

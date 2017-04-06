@@ -7,7 +7,7 @@ $('#name').keyup(function() {
 $('#password').keyup(function() {
     checkPassword();
 });
-$('#password-confirm').keyup(function() {
+$('#password-confirm, #password').keyup(function() {
     checkPasswordMatch();
 });
 $('#bornDate').on('keyup change',function () {
@@ -65,15 +65,11 @@ function checkPasswordMatch(){
     var password = $('#password').val();
     var passwordConfirm = $('#password-confirm').val();
     if(password == passwordConfirm){
-        $('#password').removeClass('ui-state-error');
         $('#password-confirm').removeClass('ui-state-error');
-        $('.passwordErrors').removeClass('ui-state-error').empty();
         $('.passwordConfirmErrors').removeClass('ui-state-error').empty();
 
     }else{
-        $('#password').addClass('ui-state-error');
         $('#password-confirm').addClass('ui-state-error');
-        $('.passwordErrors').addClass('ui-state-error').html('Las contraseñas no coinciden.');
         $('.passwordConfirmErrors').addClass('ui-state-error').html('Las contraseñas no coinciden.');
     }
 }
