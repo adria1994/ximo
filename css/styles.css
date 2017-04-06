@@ -10,6 +10,9 @@
 .admin{
     background-color: #ffffff; !important;
 }
+#dialog{
+    display: none;
+}
 .mb20{
     margin-bottom: 20px;
 }
@@ -37,4 +40,8 @@ a:hover{
 .icons{
     margin-left: 15px;
 }
-
+.close{
+    top: -2px;
+    right: -21px;
+    color: inherit;
+}

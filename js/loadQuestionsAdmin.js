@@ -4,14 +4,7 @@
 $('document').ready(function(){
    loadQuestions();
 });
-$('#addQuestion').click(function () {
-    createQuestion();
-})
 
-$('#refreshPage').click(function(){
-    location.reload();
-
-});
 function loadQuestions() {
     $('#content').load('loadQuestions.html');
     $.ajax({
@@ -26,13 +19,17 @@ function loadQuestions() {
                $('.questions').append('<tr>' +
                    '<td>' + item.Name + '</td>' +
                    '<td>' + item.Statement + '</td>' +
-                   '<td> <button class="btn btn-default" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
+                   '<td> <button class="btn btn-default" class="delete" type="button">' +
                    '<i class="glyphicon glyphicon-trash icon-trash"></i>'+
                     '</button>' +
-                   '<button class="btn btn-default icons" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
+                   '<button class="btn btn-default icons" class="edit" type="button">' +
                    '<i class="glyphicon glyphicon-pencil icon-pencil "></i>'+
                    '</button></td>');
-            })
+            });
+            $('.delete').click(function () {
+                alert("dos");
+            });
+            alert("dos");
         }
     });
 }

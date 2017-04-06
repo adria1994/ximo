@@ -29,22 +29,24 @@ function loadThemes(){
     });
 }
 $('#createQuestion').click(function () {
-    console.log("hola");
+    sendQuestion();
+});
+$('input,label').keyup(function(e){
+    if(e.keyCode == 13){
+        sendQuestion();
+    }
+});
+function sendQuestion(){
     if(checkQuestions()){
-        console.log("check done");
         $('#errorForm').removeClass('alert alert-danger').empty();
         recordQuestion();
         clearForm();
-        $('#content').load('loadQuestions.js');
+        $('#content').load('loadQuestions.html');
     }else{
         $('#errorForm').addClass('alert alert-danger').html('Los campos no pueden estar vacios');
-
-
     }
-})
-$('#cancel').click(function(){
-    $('#content').load('#loadQuestions');
-})
+}
+
 function recordQuestion(){
     $.ajax({
         type: 'POST',
@@ -72,10 +74,16 @@ function recordQuestion(){
                     '<button class="btn btn-default icons" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
                     '<i class="glyphicon glyphicon-pencil icon-pencil "></i>'+
                     '</button></td>');
-                $('#content').load('loadQuestions.html');
+                $('#content').load('loadQuestions.html',function(){
+                    loadQuestions();
+                    addDoneButton();
+                });
             }
         }
     })
+}
+function addDoneButton(){
+    $('#message').addClass("alert alert-success").append("<a class='close'x>×</a> <p>Pregunta añadida correctamente</p>");
 }
 function clearForm(){
     $('#enunciado').val('');
