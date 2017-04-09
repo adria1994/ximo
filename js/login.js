@@ -1,6 +1,3 @@
-if (localStorage.auth == 1) {
-    checkToken();
-}
 $( "#register" ).dialog({
     autoOpen: false,
     resizable: false,
@@ -102,29 +99,6 @@ function checkLogin(){
     return true;
 }
 
-function checkToken(){
-    $.ajax({
-        type: 'POST',
-        url: '../php/checkToken.php',
-        dataType: 'json',
-        data: {
-            token: localStorage.token
-        },
-        success: function (data) {
-            if(data.auth == 1) {
-                console.log(data.token);
-                localStorage.auth = 1;
-                localStorage.token = data.token;
-                window.location.href = '#';
-            } else {
-                localStorage.auth = 0;
-                localStorage.token = '';
-            }
-        }
-    });
-    return true;
-}
-
 function register(){
     $.ajax({
         type: 'POST',
@@ -141,7 +115,6 @@ function register(){
             bornCity: $('#cityBorn').find('option:selected').val()
         },
         success: function (data) {
-            console.log(data);
             if(data.auth == 1) {
                 localStorage.auth = 1;
                 localStorage.token = data.token;
