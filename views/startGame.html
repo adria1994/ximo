@@ -1,0 +1,28 @@
+<a id="btn-start-game" class="btn btn-default">Start Game</a>
+<script>
+    $('#btn-start-game').click(startGame);
+    function game() {
+        $.ajax({
+            type: 'POST',
+            url: '../php/login.php',
+            dataType: 'json',
+            data: {
+                
+            },
+            success: function (data) {
+                if (data.auth == 1) {
+                    localStorage.auth = 1;
+                    localStorage.username = data.username;
+                    localStorage.token = data.token;
+                    $('.usuarioErrors').removeClass('ui-state-error').html('');
+                    $('#dialog').dialog('close');
+                    auth();
+                } else {
+                    localStorage.auth = 0;
+                    localStorage.token = '';
+                    $('.usuarioErrors').addClass('ui-state-error').html('Las creedenciales no coinciden.');
+                }
+            }
+        });
+    }
+</script>

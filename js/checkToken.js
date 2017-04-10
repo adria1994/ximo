@@ -31,6 +31,8 @@ function auth() {
         .append('<li><a>' + localStorage.username +'</a></li>')
         .append('<li><a id="logout">Salir</a></li>');
 
+    $('#content').load('startGame.html');
+
     $("#logout").click(function() {
         logout();
         $( "#showLogin" ).click(login);
