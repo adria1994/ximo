@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Admin Brain Training</title>
@@ -10,9 +10,8 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
 </head>
 <body class="admin">
-<div id="dialog" title="Eliminar pregunta">
-    <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;">
-    Estas seguro que quieres eliminar la pregunta?</span>
+<div id="dialog" title="Eliminar pregunta" style="display: none ">
+    Estas seguro que quieres eliminar la pregunta?
 </div>
 <div class="container">
     <h2>Administración de preguntas</h2>
@@ -33,14 +32,15 @@
         </div>
         <div id="message"></div>
         <div id="content">
+
         </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="../js/jqueryUI/jquery-ui.min.js"></script>
-<script src="../js/loadQuestionsAdmin.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script src="../js/removeQuestionAdmin.js"></script>
+<script src="../js/loadQuestionsAdmin.js"></script>
 <script src="../js/globalEvents.js"></script>
 </body>
 </html>

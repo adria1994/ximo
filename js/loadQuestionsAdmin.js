@@ -15,25 +15,22 @@ function loadQuestions() {
         url: '../php/questionsAdmin.php',
         success: function(data){
             data = JSON.parse(data);
+            cont = 1;
             data.forEach(function(item){
                $('.questions').append('<tr>' +
                    '<td>' + item.Name + '</td>' +
                    '<td>' + item.Statement + '</td>' +
-                   '<td> <button class="btn btn-default" class="delete" type="button">' +
+                   '<td> <button class="btn btn-default delete" type="button">' +
                    '<i class="glyphicon glyphicon-trash icon-trash"></i>'+
                     '</button>' +
-                   '<button class="btn btn-default icons" class="edit" type="button">' +
+                   '<button class="btn btn-default icons edit" type="button">' +
                    '<i class="glyphicon glyphicon-pencil icon-pencil "></i>'+
                    '</button></td>');
             });
-            $('.delete').click(function () {
-                alert("dos");
-            });
-            alert("dos");
+
         }
     });
 }
-
 
 function closeDialog(element){
     $(element).dialog("close");
