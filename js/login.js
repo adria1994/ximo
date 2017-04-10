@@ -1,26 +1,8 @@
-$( "#register" ).dialog({
-    autoOpen: false,
-    resizable: false,
-    draggable: false,
-    title: 'Nuevo registro',
-    modal: false,
-    width: 600,
-    height: 535,
-    buttons: [
-        {
-            text: "Cancelar",
-            click: function() {
-                $( this ).dialog( "close" );
-            }
-        },
-        {
-            text:"Registrar",
-            click:register
-        }
+$( "#showLogin" ).click(login);
+$( "#showRegister" ).click(register);
 
-    ]
-});
-$( "#showLogin" ).click(function() {
+function login() {
+    console.log("Press Login");
     $('#dialog').load('dialogLogin.html', function () {
         $("#dialog").dialog({
             autoOpen: localStorage.auth != 1,
@@ -45,8 +27,9 @@ $( "#showLogin" ).click(function() {
             ]
         }).dialog("open");
     });
-});
-$( "#showRegister" ).click(function() {
+}
+
+function register() {
     $('#dialog').load('dialogRegister.html', function () {
         $("#dialog").dialog({
             autoOpen: false,
@@ -65,13 +48,13 @@ $( "#showRegister" ).click(function() {
                 },
                 {
                     text: "Registrar",
-                    click: register
+                    click: checkRegister
                 }
 
             ]
         }).dialog("open");
     });
-});
+}
 
 function checkLogin(){
     $.ajax({
@@ -83,12 +66,13 @@ function checkLogin(){
             pass: $('#contraseña').val()
         },
         success: function (data) {
-            if(data.auth == 1) {
+            if (data.auth == 1) {
                 localStorage.auth = 1;
                 localStorage.username = data.username;
                 localStorage.token = data.token;
-                $( "#login" ).dialog("close");
                 $('.usuarioErrors').removeClass('ui-state-error').html('');
+                $('#dialog').dialog('close');
+                auth();
             } else {
                 localStorage.auth = 0;
                 localStorage.token = '';
@@ -99,31 +83,39 @@ function checkLogin(){
     return true;
 }
 
-function register(){
-    $.ajax({
-        type: 'POST',
-        url: '../php/register.php',
-        dataType: 'json',
-        data: {
-            funcion: 'register',
-            name: $('#name').val(),
-            password: $('#password').val(),
-            password_confirmation: $('#password-confirm').val(),
-            email: $('#email').val(),
-            bornDate: $('#bornDate').val(),
-            bornCountry: $('#countryBorn').find('option:selected').val(),
-            bornCity: $('#cityBorn').find('option:selected').val()
-        },
-        success: function (data) {
-            if(data.auth == 1) {
-                localStorage.auth = 1;
-                localStorage.token = data.token;
-                window.location.href = '#';
-            } else {
-                localStorage.auth = 0;
-                localStorage.token = '';
+function checkRegister(){
+    if (changeCheckUser() && changeCheckPassword() && changeCheckPasswordMatch() && changeCheckEmail() && changeCheckDate()) {
+        $.ajax({
+            type: 'POST',
+            url: '../php/register.php',
+            dataType: 'json',
+            data: {
+                funcion: 'register',
+                name: $('#name').val(),
+                password: $('#password').val(),
+                password_confirmation: $('#password-confirm').val(),
+                email: $('#email').val(),
+                bornDate: $('#bornDate').val(),
+                bornCountry: $('#countryBorn').find('option:selected').val(),
+                bornCity: $('#cityBorn').find('option:selected').val()
+            },
+            success: function (data) {
+                if(data.auth == 1) {
+                    localStorage.auth = 1;
+                    localStorage.username = data.username;
+                    localStorage.token = data.token;
+                    $('#error').html('');
+                    $('#dialog').dialog('close');
+                    auth();
+                } else {
+                    localStorage.auth = 0;
+                    localStorage.token = '';
+                    $('#error').html(data.error);
+                    $('#dialog').scrollTop(0);
+                }
             }
-        }
-    });
-    return true;
+        });
+        return true;
+    }
+    return false;
 }
