@@ -8,7 +8,7 @@ class Auth
 {
     private static $secret_key = 'Srw2sadx8@';
     private static $encrypt = ['HS256'];
-    private static $aud = null;
+    private static $aud = 'null';
 
     public static function SignIn($data)
     {
