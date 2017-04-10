@@ -17,7 +17,6 @@
         <div class="container">
             <div class="navbar-header">
 
-                <!-- Collapsed Hamburger -->
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                     <span class="sr-only">Toggle Navigation</span>
                     <span class="icon-bar"></span>
@@ -31,78 +30,21 @@
                 </a>
             </div>
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right" id="menu">
                     <li><a id="showLogin">Login</a></li>
                     <li><a id="showRegister">Register</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container" id="login" style="display: none">
-        <form role="form" method="POST" action="">
-
-            <div class="usuarioErrors"></div>
-            <div class="form-group">
-                <label for="usuario" class="control-label">Usuario</label>
-                <input id="usuario" type="email" class="form-control" name="email" value="" autocomplete="off" required autofocus>
-            </div>
-            <div class="form-group">
-                <label for="contraseña" class="control-label">Password</label>
-                <input id="contraseña" type="password" class="form-control" name="password" required>
-            </div>
-        </form>
-    </div>
-    <div class="container" id="register" style="display: none">
-        <form role="form" method="POST" action="#">
-
-            <div class="form-group">
-
-                <label for="name" class="control-label">Usuario</label>
-                <input id="name" type="text" class="form-control" name="name" value="" autocomplete="off" required >
-                <div class="nameErrors"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="password" class="control-label">Password</label>
-                <input id="password" type="password" class="form-control" name="password" required>
-                <div class="passwordErrors"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="password-confirm" class="control-label">Confirmar password</label>
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                <div class="passwordConfirmErrors"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="email" class="control-label">Direccion correo electronico</label>
-                <input id="email" type="email" class="form-control" name="email" autocomplete="off" value="" required>
-                <div class="emailErrors"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="bornDate" class="control-label">Fecha nacimiento</label>
-                <input id="bornDate" placeholder="mm/dd/yy" type="text" class="form-control" name="bornDate" required>
-                <div class="dateErrors"></div>
-            </div>
-            <div class="form-group">
-                <label for="countryBorn" class="control-label">Pais nacimiento</label>
-                <select id="countryBorn" class="form-control" name="bornCountry" ></select>
-            </div>
-            <div class="form-group">
-                <label for="cityBorn" class="control-label">Ciudad nacimiento</label>
-                <select id="cityBorn" class="form-control" name="bornCity" ></select>
-            </div>
-        </form>
-    </div>
+    <div id="dialog" class="container"></div>
 </div>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="../js/jqueryUI/jquery-ui.min.js"></script>
 <script src="../js/momentjs/moment.min.js"></script>
-<script src="../js/register.js"></script>
-<script src="../js/registerCheck.js"></script>
+<script src="../js/jqueryUI/jquery-ui.min.js"></script>
+<script src="../js/login.js"></script>
+<script src="../js/checkToken.js"></script>
 </body>
 </html>

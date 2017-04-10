@@ -1,0 +1,16 @@
+<form role="form" method="POST" action="">
+    <div class="usuarioErrors"></div>
+    <div class="form-group">
+        <label for="usuario" class="control-label">Usuario</label>
+        <input id="usuario" type="email" class="form-control" name="email" value="" autocomplete="off" required autofocus>
+    </div>
+    <div class="form-group">
+        <label for="contraseña" class="control-label">Password</label>
+        <input id="contraseña" type="password" class="form-control" name="password" required>
+    </div>
+</form>
+<script>
+    $('input').keyup(function(e){
+        if(e.keyCode == 13) checkLogin();
+    });
+</script>

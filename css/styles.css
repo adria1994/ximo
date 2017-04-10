@@ -30,7 +30,7 @@ a:hover{
     color: white;
 
 }
-#showLogin,#showRegister{
+#menu a{
     color: white;
     cursor: pointer;
 }
