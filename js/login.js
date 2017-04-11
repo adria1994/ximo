@@ -2,7 +2,6 @@ $( "#showLogin" ).click(login);
 $( "#showRegister" ).click(register);
 
 function login() {
-    console.log("Press Login");
     $('#dialog').load('dialogLogin.html', function () {
         $("#dialog").dialog({
             autoOpen: localStorage.auth != 1,
@@ -84,7 +83,7 @@ function checkLogin(){
 }
 
 function checkRegister(){
-    if (changeCheckUser() && changeCheckPassword() && changeCheckPasswordMatch() && changeCheckEmail() && changeCheckDate()) {
+    if (checkUser() && checkPassword() && checkPasswordMatch() && checkEmail() && checkDate()) {
         $.ajax({
             type: 'POST',
             url: '../php/register.php',

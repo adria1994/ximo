@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2
--- http://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 03-04-2017 a las 20:18:52
--- Versión del servidor: 5.7.17-0ubuntu0.16.04.1
--- Versión de PHP: 7.0.15-0ubuntu0.16.04.4
+-- Host: localhost
+-- Generation Time: Apr 11, 2017 at 06:18 PM
+-- Server version: 5.7.16-0ubuntu0.16.04.1
+-- PHP Version: 7.1.0-2+deb.sury.org~xenial+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,15 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `practicasM6`
+-- Database: `practicasM6`
 --
-DROP DATABASE practicasM6;
-CREATE DATABASE practicasM6;
-use practicasM6;
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `city`
+-- Table structure for table `city`
 --
 
 CREATE TABLE `city` (
@@ -37,7 +35,7 @@ CREATE TABLE `city` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `city`
+-- Dumping data for table `city`
 --
 
 INSERT INTO `city` (`Id`, `Name`, `CountryCode`, `District`, `Population`) VALUES
@@ -4127,7 +4125,7 @@ INSERT INTO `city` (`Id`, `Name`, `CountryCode`, `District`, `Population`) VALUE
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `country`
+-- Table structure for table `country`
 --
 
 CREATE TABLE `country` (
@@ -4149,7 +4147,7 @@ CREATE TABLE `country` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `country`
+-- Dumping data for table `country`
 --
 
 INSERT INTO `country` (`Code`, `Name`, `Continent`, `Region`, `SurfaceArea`, `IndepYear`, `Population`, `LifeExpectancy`, `GNP`, `GNPOld`, `LocalName`, `GovernmentForm`, `HeadOfState`, `Capital`, `Code2`) VALUES
@@ -4396,7 +4394,7 @@ INSERT INTO `country` (`Code`, `Name`, `Continent`, `Region`, `SurfaceArea`, `In
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `countrylanguage`
+-- Table structure for table `countrylanguage`
 --
 
 CREATE TABLE `countrylanguage` (
@@ -4407,7 +4405,7 @@ CREATE TABLE `countrylanguage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `countrylanguage`
+-- Dumping data for table `countrylanguage`
 --
 
 INSERT INTO `countrylanguage` (`CountryCode`, `Language`, `IsOfficial`, `Percentage`) VALUES
@@ -5399,7 +5397,7 @@ INSERT INTO `countrylanguage` (`CountryCode`, `Language`, `IsOfficial`, `Percent
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `game`
+-- Table structure for table `game`
 --
 
 CREATE TABLE `game` (
@@ -5412,7 +5410,7 @@ CREATE TABLE `game` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `question`
+-- Table structure for table `question`
 --
 
 CREATE TABLE `question` (
@@ -5429,7 +5427,7 @@ CREATE TABLE `question` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `question_game`
+-- Table structure for table `question_game`
 --
 
 CREATE TABLE `question_game` (
@@ -5440,7 +5438,7 @@ CREATE TABLE `question_game` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `theme`
+-- Table structure for table `theme`
 --
 
 CREATE TABLE `theme` (
@@ -5451,13 +5449,14 @@ CREATE TABLE `theme` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
   `Id` int(11) NOT NULL,
   `Username` varchar(100) NOT NULL,
   `Password` varchar(100) NOT NULL,
+  `Token` varchar(256) DEFAULT NULL,
   `Rol` varchar(20) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `DateBorn` date NOT NULL,
@@ -5465,65 +5464,71 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Volcado de datos para la tabla `user`
+-- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`Id`, `Username`, `Password`, `Rol`, `Email`, `DateBorn`, `IdCity`) VALUES
-(1, 'dani', 'austria', 'user', 'daniellopez@iesjoandaustria.org', '2017-04-01', 64);
+INSERT INTO `user` (`Id`, `Username`, `Password`, `Token`, `Rol`, `Email`, `DateBorn`, `IdCity`) VALUES
+(1, 'dani', 'austria', '', 'user', 'daniellopez@iesjoandaustria.org', '2017-04-01', 64),
+(2, 'daniel', 'austria1', '', 'user', 'dlopezsmx2013@gmail.com', '1998-04-01', 654),
+(3, 'daniel2\' \\\'', 'asdasd1', '', 'user', 'dlopezsmx2013@gmail.com', '1999-04-01', 129),
+(4, 'daniel2\' \\\' " hola = 0 "', 'asdasd1', '', 'user', 'dlopezsmx2013@gmail.com', '1999-04-01', 129),
+(5, 'dlopez', 'austria1', '', 'user', 'dlopezsmx2013@gmail.com', '1997-04-01', 129),
+(6, 'daniel1', 'asdasd1', '', 'user', 'asdasd@asd.sad', '1997-04-01', 129),
+(7, 'asdsasadasd', 'adsads1', '', 'user', 'asdasd@asda.asd', '1984-04-04', 129);
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `city`
+-- Indexes for table `city`
 --
 ALTER TABLE `city`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `CountryCode` (`CountryCode`);
 
 --
--- Indices de la tabla `country`
+-- Indexes for table `country`
 --
 ALTER TABLE `country`
   ADD PRIMARY KEY (`Code`);
 
 --
--- Indices de la tabla `countrylanguage`
+-- Indexes for table `countrylanguage`
 --
 ALTER TABLE `countrylanguage`
   ADD PRIMARY KEY (`CountryCode`,`Language`),
   ADD KEY `CountryCode` (`CountryCode`);
 
 --
--- Indices de la tabla `game`
+-- Indexes for table `game`
 --
 ALTER TABLE `game`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `FK_GAME_USER` (`Id_user`);
 
 --
--- Indices de la tabla `question`
+-- Indexes for table `question`
 --
 ALTER TABLE `question`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `FK_QUESTION_THEME` (`IdTheme`);
 
 --
--- Indices de la tabla `question_game`
+-- Indexes for table `question_game`
 --
 ALTER TABLE `question_game`
   ADD PRIMARY KEY (`IdQuestion`,`IdGame`),
   ADD KEY `FK_QUESTION_GAME_GAME` (`IdGame`);
 
 --
--- Indices de la tabla `theme`
+-- Indexes for table `theme`
 --
 ALTER TABLE `theme`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Indices de la tabla `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`Id`),
@@ -5531,65 +5536,65 @@ ALTER TABLE `user`
   ADD KEY `FK_USER_CITY` (`IdCity`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `city`
+-- AUTO_INCREMENT for table `city`
 --
 ALTER TABLE `city`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4080;
 --
--- AUTO_INCREMENT de la tabla `game`
+-- AUTO_INCREMENT for table `game`
 --
 ALTER TABLE `game`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `question`
+-- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `theme`
+-- AUTO_INCREMENT for table `theme`
 --
 ALTER TABLE `theme`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT de la tabla `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `city`
+-- Constraints for table `city`
 --
 ALTER TABLE `city`
   ADD CONSTRAINT `city_ibfk_1` FOREIGN KEY (`CountryCode`) REFERENCES `country` (`Code`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `game`
+-- Constraints for table `game`
 --
 ALTER TABLE `game`
   ADD CONSTRAINT `game_ibfk_1` FOREIGN KEY (`Id_user`) REFERENCES `user` (`Id`);
 
 --
--- Filtros para la tabla `question`
+-- Constraints for table `question`
 --
 ALTER TABLE `question`
   ADD CONSTRAINT `FK_QUESTION_THEME` FOREIGN KEY (`IdTheme`) REFERENCES `theme` (`Id`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `question_game`
+-- Constraints for table `question_game`
 --
 ALTER TABLE `question_game`
   ADD CONSTRAINT `question_game_ibfk_1` FOREIGN KEY (`IdQuestion`) REFERENCES `question` (`Id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `question_game_ibfk_2` FOREIGN KEY (`IdGame`) REFERENCES `game` (`Id`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `user`
+-- Constraints for table `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`IdCity`) REFERENCES `city` (`Id`) ON UPDATE CASCADE;

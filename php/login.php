@@ -12,9 +12,9 @@ function login($mysqli, $user, $pass) {
     $response = [];
     $response['auth'] = 0;
 
-    $select = "SELECT * FROM user WHERE Username = '$user' AND Password = '$pass'";
+    $select = "SELECT * FROM user WHERE Username = :user AND Password = :pass";
     $row = $mysqli->prepare($select);
-    $row->execute();
+    $row->execute(array(':user' => $user, ':pass' => $pass));
 
     if ($row->rowCount() == 1) {
         $response['auth'] = 1;
