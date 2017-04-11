@@ -1,22 +1,26 @@
 <?php
 include_once('connect.php');
-include('Auth.php');
+//include('Auth.php');
 
+$name = $_POST['username'];
 $token = $_POST['token'];
 
-checkToken($token);
+checkToken($mysqli, $name, $token);
 
-function checkToken($token) {
+function checkToken($mysqli, $name, $token) {
     $response = [];
 
-    try {
-        if (Auth::Check($token)) {
-            $response['auth'] = 1;
-            $data = Auth::GetData($token);
-            $response['id'] = $data->id;
-            $response['token'] = $token;
-        }
-    } catch (Exception $e) {
+    $select = "SELECT * FROM `user` WHERE `Username` = :name AND `Token` = :token";
+    $row = $mysqli->prepare($select);
+    $row->execute(array(':name' => $name, ':token' => $token));
+
+    $data = $row->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT);
+
+    if ($row->rowCount() == 1) {
+        $response['auth'] = 1;
+        $response['id'] = $data['Id'];
+        $response['token'] = $data['Token'];
+    } else {
         $response['auth'] = 0;
     }
 
