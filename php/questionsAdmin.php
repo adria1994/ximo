@@ -11,14 +11,41 @@ switch ($_POST['funcion']){
     case 'insertQuestion':
         insertQuestion($mysqli);
         break;
+    case 'deleteQuestion':
+        deleteQuestion($mysqli);
+        break;
+    case 'loadQuestion':
+        loadQuestion($mysqli);
 }
-function loadTable($mysqli){
+function loadQuestion($mysqli){
+    $id = $_POST['Id'];
     $array = [];
-    foreach ($mysqli->query('SELECT Statement,Name from question join theme on question.IdTheme = theme.Id;') as $row) array_push($array, $row);
+    foreach ($mysqli->query('SELECT * from question where Id ='. $id) as $row) array_push($array, $row);
     $mysqli = null;
     echo json_encode($array);
 }
+function loadTable($mysqli){
+    $array = [];
+    foreach ($mysqli->query('SELECT question.Id,Name,Statement from question join theme on question.IdTheme = theme.Id;') as $row) array_push($array, $row);
+    $mysqli = null;
+    echo json_encode($array);
+}
+function deleteQuestion($mysqli){
+    $id = $_POST['Id'];
+    try {
+        $sql = "DELETE FROM question WHERE id = $id";
+        $query = $mysqli->prepare($sql);
+        var_dump($query);
+        if($query->execute()){
+            echo true;
+        }else{
+            echo false;
+        }
 
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+}
 function loadThemes($mysqli){
     $array = [];
     foreach ($mysqli->query('SELECT Id,Name from theme;') as $row) array_push($array, $row);

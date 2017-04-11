@@ -1,9 +1,6 @@
 /**
  * Created by adria on 4/04/17.
  */
-$('document').ready(function(){
-    loadThemes();
-});
 function checkQuestions(){
     var bool = true;
     if($('#enunciado').val().length == 0){ bool = false }
@@ -14,6 +11,7 @@ function checkQuestions(){
     return bool;
 }
 function loadThemes(){
+    console.log("ha pasado por aqui")
     $.ajax({
         type: 'POST',
         data: {
@@ -21,6 +19,7 @@ function loadThemes(){
         },
         url: '../php/questionsAdmin.php',
         success: function(data) {
+            console.log(data);
             data = JSON.parse(data);
             data.forEach(function (item) {
                 $('#tema').append("<option value='"+item.Id+"'>"+item.Name+"</option>");
@@ -76,14 +75,14 @@ function recordQuestion(){
                     '</button></td>');
                 $('#content').load('loadQuestions.html',function(){
                     loadQuestions();
-                    addDoneButton();
+                    addDoneButton("Pregunta añadida correctamente");
                 });
             }
         }
     })
 }
-function addDoneButton(){
-    $('#message').addClass("alert alert-success").append("<a class='close'x>×</a> <p>Pregunta añadida correctamente</p>");
+function addDoneButton($message){
+    $('#message').addClass("alert alert-success").append("<a class='close'x>×</a> <p>"+$message+"</p>");
 }
 function clearForm(){
     $('#enunciado').val('');

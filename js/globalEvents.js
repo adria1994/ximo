@@ -6,32 +6,6 @@ $('#addQuestion').click(function () {
     clearMessage();
     createQuestion();
 })
-$('#content').on('click', 'button.delete', function() {
-    /*alert("hola")*/
-    $( "#dialog" ).dialog({
-        autoOpen: false,
-        resizable: false,
-        draggable: false,
-        title: 'Nuevo registro',
-        modal: false,
-        width: 600,
-        height: 535,
-        buttons: [
-            {
-                text: "Cancelar",
-                click: function() {
-                    $( this ).dialog( "close" );
-                }
-            },
-            {
-                text:"Registrar",
-
-            }
-
-        ]
-    });
-    $("#dialog").dialog("open");
-});
 
 $('#refreshPage').click(function(){
     location.reload();
@@ -46,7 +20,9 @@ $('#cancel').click(function(){
 function clearMessage() {
     $('#message').removeClass('alert alert-success').empty();
 }
-$('.delete').click(function () {
-    alert("dos");
-});
+
+
+$('#editUser').click(function(){
+    editQuestion();
+})
 
