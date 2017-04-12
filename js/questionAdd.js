@@ -11,7 +11,6 @@ function checkQuestions(){
     return bool;
 }
 function loadThemes(){
-    console.log("ha pasado por aqui")
     $.ajax({
         type: 'POST',
         data: {
@@ -19,17 +18,15 @@ function loadThemes(){
         },
         url: '../php/questionsAdmin.php',
         success: function(data) {
-            console.log(data);
             data = JSON.parse(data);
+            $('#tema').html("");
             data.forEach(function (item) {
                 $('#tema').append("<option value='"+item.Id+"'>"+item.Name+"</option>");
             })
         }
     });
 }
-$('#createQuestion').click(function () {
-    sendQuestion();
-});
+
 $('input,label').keyup(function(e){
     if(e.keyCode == 13){
         sendQuestion();
@@ -39,8 +36,8 @@ function sendQuestion(){
     if(checkQuestions()){
         $('#errorForm').removeClass('alert alert-danger').empty();
         recordQuestion();
-        clearForm();
-        $('#content').load('loadQuestions.html');
+        // clearForm();
+        $('#content').load('questionAdd.html');
     }else{
         $('#errorForm').addClass('alert alert-danger').html('Los campos no pueden estar vacios');
     }
@@ -62,22 +59,22 @@ function recordQuestion(){
         },
         url: '../php/questionsAdmin.php',
         success: function(data){
-
-            if(data){
-                $('.questions').append('<tr>' +
-                    '<td>' + $('#tema option:selected').html() + '</td>' +
-                    '<td>' + $('#enunciado').val() + '</td>' +
-                    '<td> <button class="btn btn-default" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
-                    '<i class="glyphicon glyphicon-trash icon-trash"></i>'+
-                    '</button>' +
-                    '<button class="btn btn-default icons" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
-                    '<i class="glyphicon glyphicon-pencil icon-pencil "></i>'+
-                    '</button></td>');
-                $('#content').load('loadQuestions.html',function(){
-                    loadQuestions();
-                    addDoneButton("Pregunta añadida correctamente");
-                });
-            }
+            console.log(data);
+            // if(data){
+            //     $('.questions').append('<tr>' +
+            //         '<td>' + $('#tema option:selected').html() + '</td>' +
+            //         '<td>' + $('#enunciado').val() + '</td>' +
+            //         '<td> <button class="btn btn-default" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
+            //         '<i class="glyphicon glyphicon-trash icon-trash"></i>'+
+            //         '</button>' +
+            //         '<button class="btn btn-default icons" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
+            //         '<i class="glyphicon glyphicon-pencil icon-pencil "></i>'+
+            //         '</button></td>');
+            //     $('#content').load('loadQuestions.html',function(){
+            //         loadQuestions();
+            //         addDoneButton("Pregunta añadida correctamente");
+            //     });
+            // }
         }
     })
 }

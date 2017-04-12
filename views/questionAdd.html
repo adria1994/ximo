@@ -1,4 +1,3 @@
-
 <div class="col-md-12" id="questionForm">
     <form role="form" method="POST" action="#">
         <div id="errorForm"></div>
@@ -49,5 +48,12 @@
     <button class="btn btn-info" id="createQuestion">Añadir pregunta</button>
     <button class="btn btn-danger" id="cancel">Cancelar</button>
 </div>
-<script src="../js/addQuestionAdmin.js"></script>
-<script src="../js/globalEvents.js"></script>
+<script>
+    loadThemes();
+    $('#createQuestion').click(function () {
+        sendQuestion();
+    });
+    $('#cancel').click(function(){
+        $('#content').load('questionLoad.html');
+    });
+</script>
