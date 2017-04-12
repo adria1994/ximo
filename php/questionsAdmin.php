@@ -3,7 +3,7 @@ include_once('connect.php');
 
 switch ($_POST['funcion']){
     case 'loadTable':
-        loadTable($mysqli, $_POST['country']);
+//        loadTable($mysqli, $_POST['country']);
         break;
     case 'loadThemes':
         loadThemes($mysqli);
@@ -24,7 +24,7 @@ function loadQuestion($mysqli){
     $mysqli = null;
     echo json_encode($array);
 }
-function loadTable($mysqli){
+function loadTable($mysqli, $country){
     $array = [];
     foreach ($mysqli->query('SELECT question.Id,Name,Statement from question join theme on question.IdTheme = theme.Id;') as $row) array_push($array, $row);
     $mysqli = null;
@@ -32,28 +32,28 @@ function loadTable($mysqli){
 }
 function deleteQuestion($mysqli){
     $id = $_POST['Id'];
-    try {
-        $sql = "DELETE FROM question WHERE id = $id";
-        $query = $mysqli->prepare($sql);
-        var_dump($query);
-        if($query->execute()){
-            echo true;
-        }else{
-            echo false;
-        }
-
-    } catch (Exception $e) {
-        echo $e->getMessage();
+    $sql = "DELETE FROM question WHERE id = :id";
+    $query = $mysqli->prepare($sql);
+    $row = $query->execute(
+        array(
+            'id' => $id
+        )
+    );
+    if($row->rowCount() == 1){
+        echo true;
+    }else{
+        echo false;
     }
 }
 function loadThemes($mysqli){
     $array = [];
-    foreach ($mysqli->query('SELECT Id,Name from theme;') as $row) array_push($array, $row);
-    $mysqli = null;
+    $select = "SELECT Id, Name from theme;";
+    $row = $mysqli->prepare($select);
+    $row->execute();
+    while ($row2 = $row->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) array_push($array, $row2);
     echo json_encode($array);
 }
 function insertQuestion($mysqli){
-    $id = 'default';
     $statement = $_POST["Statement"];
     $a1 = $_POST["Answer1"];
     $a2 = $_POST["Answer2"];
@@ -61,19 +61,25 @@ function insertQuestion($mysqli){
     $a4 = $_POST["Answer4"];
     $correctAnswer = $_POST["CorrectAnswer"];
     $idTheme = $_POST["IdTheme"];
-    try {
-        $sql = "INSERT INTO question VALUES($id,'$statement','$a1','$a2','$a3','$a4','$correctAnswer',$idTheme)";
-        $query = $mysqli->prepare($sql);
-        var_dump($query);
-        if($query->execute()){
-            echo true;
-        }else{
-            echo false;
-        }
 
-    } catch (Exception $e) {
-        echo $e->getMessage();
+    $select = "INSERT INTO question VALUES(DEFAULT, :statement, :a1, :a2, :a3, :a4, :correctAnswer, :idTheme)";
+    $row = $mysqli->prepare($select);
+    $row->execute(
+        array(
+            ':statement' => $statement,
+            ':a1' => $a1,
+            ':a2' => $a2,
+            ':a3' => $a3,
+            ':a4' => $a4,
+            ':correctAnswer' => $correctAnswer,
+            ':idTheme' => $idTheme
+        )
+    );
+
+    if($row->rowCount() == 1){
+        echo 1;
+    }else{
+        echo 0;
     }
-
-
 }
+$mysqli = null;

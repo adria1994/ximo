@@ -25,7 +25,6 @@ function getCountry($mysqli) {
     $row = $mysqli->prepare($select);
     $row->execute();
     while ($row2 = $row->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) array_push($array, $row2);
-    $mysqli = null;
     echo json_encode($array);
 }
 
@@ -35,7 +34,6 @@ function getCity($mysqli, $country) {
     $row = $mysqli->prepare($select);
     $row->execute(array(':country' => $country));
     while ($row2 = $row->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) array_push($array, $row2);
-    $mysqli = null;
     echo json_encode($array);
 }
 
@@ -64,7 +62,6 @@ function register($mysqli, $name, $password, $password_confirm, $email, $bornDat
             } else $response['error'] = "El nombre de usuario ya existe";
         } else $response['error'] = "Las contraseñas no coinciden";
     } else $response['error'] = "Hay campos vacios";
-    $mysqli = null;
     echo json_encode($response);
 }
 
@@ -72,7 +69,7 @@ function userExist($mysqli, $name) {
     $select = "SELECT * FROM user WHERE Username = :name";
     $row = $mysqli->prepare($select);
     $row->execute(array(':name' => $name));
-    $mysqli = null;
     return $row->rowCount();
 }
 
+$mysqli = null;
