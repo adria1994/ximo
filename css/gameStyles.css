@@ -1,0 +1,60 @@
+#game{
+    border: 2px white solid;
+    border-radius: 1%;
+    min-height: 550px;
+    min-width: 400px;
+    background-color: black;
+}
+#game h2{
+    margin-top: 50px;
+    text-align: center;
+    color: white;
+}
+
+#game li {
+    display: table-cell;
+    list-style: none;
+    width: 50%;
+}
+#game ul {
+    display: table;
+    width:100%;
+
+}
+.answers {
+    padding-top: 100px;
+    max-width: 300px;
+    margin: 0 auto;
+}
+.btn-response{
+    border-color: #e1e1e1;
+    background-color: #555 !important;
+    color: white;
+}
+.btn-response:hover{
+    border-color: #e1e1e1 !important;
+    background-color: white !important;
+    color: black;
+}
+#progress-bar {
+
+    width: 450px;
+    height: 40px;
+    margin: 0 auto;
+    background: black;
+    padding: 3px;
+    border-color: white !important;
+    border: solid 1px;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
+    margin-top: 40px;
+}
+
+.progress-bar-fill {
+    display: block;
+    height: 32px;
+    background: white;
+    border-radius: 3px;
+    transition: width 3s ease-in-out;
+/*rgba(25, 255, 253, 0.43);*/
+}
