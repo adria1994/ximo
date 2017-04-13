@@ -1,18 +1,4 @@
 <a id="btn-start-game" class="btn btn-default">Start Game</a>
 <script>
-    $('#btn-start-game').click(startGame);
-    function startGame() {
-        $.ajax({
-            type: 'POST',
-            url: '../php/game.php',
-            dataType: 'json',
-            data: {
-                funcion: 'create',
-                token: localStorage.token
-            },
-            success: function (data) {
-
-            }
-        });
-    }
+    if ($('script[src="../js/startGame.js"]').length === 0) $.getScript('../js/startGame.js');
 </script>

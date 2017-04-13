@@ -4,7 +4,6 @@ if (localStorage.auth == 1) {
     logout();
 }
 function checkToken(){
-    auth();
     $.ajax({
         type: 'POST',
         url: '../php/checkToken.php',
