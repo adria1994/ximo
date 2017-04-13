@@ -54,6 +54,12 @@
         sendQuestion();
     });
     $('#cancel').click(function(){
-        $('#content').load('questionLoad.html');
+        loadQuestions();
+
+    });
+    $('input,label').keyup(function(e){
+        if(e.keyCode == 13){
+            sendQuestion();
+        }
     });
 </script>

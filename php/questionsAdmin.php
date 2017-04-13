@@ -3,7 +3,7 @@ include_once('connect.php');
 
 switch ($_POST['funcion']){
     case 'loadTable':
-//        loadTable($mysqli, $_POST['country']);
+        loadTable($mysqli, $_POST['country']);
         break;
     case 'loadThemes':
         loadThemes($mysqli);
@@ -16,6 +16,10 @@ switch ($_POST['funcion']){
         break;
     case 'loadQuestion':
         loadQuestion($mysqli);
+        break;
+    case 'updateQuestion';
+        updateQuestion($mysqli);
+        break;
 }
 function loadQuestion($mysqli){
     $id = $_POST['Id'];
@@ -32,17 +36,16 @@ function loadTable($mysqli, $country){
 }
 function deleteQuestion($mysqli){
     $id = $_POST['Id'];
-    $sql = "DELETE FROM question WHERE id = :id";
-    $query = $mysqli->prepare($sql);
-    $row = $query->execute(
-        array(
-            'id' => $id
-        )
-    );
-    if($row->rowCount() == 1){
-        echo true;
-    }else{
-        echo false;
+    try {
+        $sql = "DELETE FROM question WHERE id = $id";
+        $query = $mysqli->prepare($sql);
+        if($query->execute()){
+            echo ·hola;
+        }else{
+            echo false;
+        }
+    } catch (Exception $e) {
+        echo $e->getMessage();
     }
 }
 function loadThemes($mysqli){
@@ -81,5 +84,28 @@ function insertQuestion($mysqli){
     }else{
         echo 0;
     }
+}
+function updateQuestion($mysqli){
+    $QuestionId = $_POST['QuestionId'];
+    $Statement = $_POST['Statement'];
+    $Answer1 = $_POST['Answer1'];
+    $Answer2 = $_POST['Answer2'];
+    $Answer3 = $_POST['Answer3'];
+    $Answer4 = $_POST['Answer4'];
+    $CorrectAnswer = $_POST['CorrectAnswer'];
+    $IdTheme= $_POST['IdTheme'];
+    try{
+        $update = "UPDATE question SET Statement = '$Statement', Answer1 = '$Answer1', Answer2 = '$Answer2',Answer3 = '$Answer3',Answer4 = '$Answer4',CorrectAnswer = $CorrectAnswer, IdTheme = $IdTheme WHERE id = $QuestionId";
+        $query = $mysqli->prepare($update);
+        $query->execute();
+        if($query->rowCount() == 1){
+            echo false;
+        }else{
+            echo true;
+        }
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+
 }
 $mysqli = null;

@@ -49,5 +49,21 @@
 <script src="../js/questionRemove.js"></script>
 <script src="../js/questionEdit.js"></script>
 <script src="../js/globalEvents.js"></script>
+<script>
+    $('document').ready(function () {
+        loadQuestions();
+    })
+
+    $('#refreshPage').click(function(){
+         location.reload();
+    });
+    $('#addQuestion').click(function () {
+        clearMessage();
+        createQuestion();
+    });
+    $('#editUser').click(function(){
+        editQuestion();
+    });
+</script>
 </body>
 </html>

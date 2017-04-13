@@ -4,6 +4,7 @@
         <div id="errorForm"></div>
 
         <div class="form-group">
+            <input id="questionId" type="hidden" name="questionId">
 
             <label for="enunciado" class="control-label">Enunciado pregunta</label>
             <input id="enunciado" type="text" class="form-control" name="name" value="" autocomplete="off" required >
@@ -39,15 +40,23 @@
             </select>
         </div>
         <div class="form-group">
-
             <label for="temaEdit" class="control-label">Tema</label>
-            <select id="temaEdit" class="form-control" name="name" required >
+            <select id="temaEdit" class="form-control" name="name">
             </select>
-
         </div>
+
     </form>
     <button class="btn btn-info" id="recordEdit">Editar pregunta</button>
     <button class="btn btn-danger" id="cancel">Cancelar</button>
 </div>
 <script src="../js/globalEvents.js"></script>
+<script>
+    $('#recordEdit').click(function () {
+        updateQuestion()
+    })
+    $('#cancel').click(function(){
+        loadQuestions();
+
+    });
+</script>
 

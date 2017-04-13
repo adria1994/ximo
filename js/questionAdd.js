@@ -27,17 +27,12 @@ function loadThemes(){
     });
 }
 
-$('input,label').keyup(function(e){
-    if(e.keyCode == 13){
-        sendQuestion();
-    }
-});
 function sendQuestion(){
     if(checkQuestions()){
         $('#errorForm').removeClass('alert alert-danger').empty();
         recordQuestion();
         clearForm();
-        $('#content').load('questionAdd.html');
+
     }else{
         $('#errorForm').addClass('alert alert-danger').html('Los campos no pueden estar vacios');
     }
@@ -60,19 +55,14 @@ function recordQuestion(){
         url: '../php/questionsAdmin.php',
         success: function(data){
             if(data){
-                $('.questions').append('<tr>' +
-                    '<td>' + $('#tema option:selected').html() + '</td>' +
-                    '<td>' + $('#enunciado').val() + '</td>' +
-                    '<td> <button class="btn btn-default" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
-                    '<i class="glyphicon glyphicon-trash icon-trash"></i>'+
-                    '</button>' +
-                    '<button class="btn btn-default icons" type="button" name="refresh" aria-label="refresh" title="Refresh">' +
-                    '<i class="glyphicon glyphicon-pencil icon-pencil "></i>'+
-                    '</button></td>');
                 $('#content').load('questionLoad.html',function(){
                     loadQuestions();
                     addDoneButton("Pregunta añadida correctamente");
+                    $('.close').click(function(){
+                        clearMessage()
+                    });
                 });
+
             }
         }
     })

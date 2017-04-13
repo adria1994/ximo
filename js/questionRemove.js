@@ -6,6 +6,9 @@ $('#deleteUser').click(function() {
         if(!$('#message').hasClass("alert alert-danger")) {
             $('#message').addClass("alert alert-danger").append("<a class='close'>×</a> <p>Tienes que seleccionar alguna pregunta</p>");
         }
+        $('.close').click(function(){
+            clearMessage();
+        });
     }else{
         $('#message').removeClass("alert alert-danger").empty();
         if(confirm("Estas seguro de que quieres eliminar la pregunta?")){
@@ -19,20 +22,24 @@ $('#deleteUser').click(function() {
                 success: function(data){
 
                     if(data){
-                        $('#content').load('loadQuestions.html',function(){
-                            loadQuestions();
-                            addDoneButton("Pregunta eliminada correctamente");
+
+                        loadQuestions();
+                        addDoneButton("Pregunta eliminada correctamente");
+                        $('.close').click(function(){
+                            clearMessage();
                         });
+
                     }else{
                         alert("algo no ha ido bien");
                     }
+
                 }
+
             })
+
         }
     }
-    $('.close').click(function(){
-       clearMessage();
-    });
+
 
 });
 
