@@ -1,79 +1,48 @@
 <?php
 include_once('connect.php');
-include('');
 
-switch ($_POST['funcion']){
+switch (@$_POST['funcion']){
     case 'create':
-
-        getCity($mysqli, $_POST['country']);
+        $token = $_POST['token'];
+        $username = $_POST['username'];
+        createGame($mysqli, $username, $token);
         break;
-    case 'getCountry';
-        getCountry($mysqli);
+    case 'update';
+        updateGame($mysqli, $username, $token);
         break;
-    case 'register':
-        register($mysqli, $_POST['name'],
-            $_POST['password'],
-            $_POST['password_confirmation'],
-            $_POST['email'],
-            $_POST['bornDate'],
-            $_POST['bornCity']);
+    case 'finish';
+        finish($mysqli, $username, $token);
         break;
 }
 
-function getCountry($mysqli) {
+function createGame($mysqli, $username, $token) {
     $array = [];
-    $select = "SELECT Code, Name from country";
-    $row = $mysqli->prepare($select);
-    $row->execute();
-    while ($row2 = $row->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) array_push($array, $row2);
-    $mysqli = null;
+    $array['error'] = 1;
+    $array['errorMessage'] = '';
+
+    $idUser = getUserId($mysqli, $username, $token);
+    if ($idUser > 0) {
+        $select = "INSERT INTO `game` (`Id`, `Fecha`, `Edad`, `Id_user`) VALUES (DEFAULT, :date, NULL, :idUser)";
+        $row = $mysqli->prepare($select);
+        $row->execute(array(':date' => date('Y-m-d'), ':idUser' => $idUser));
+
+        if ($row->rowCount() == 1) {
+            $id = $mysqli->lastInsertId();
+            $select = "UPDATE `user` SET `CurrentGame` = :id WHERE Username = :name AND Token = :token";
+            $row = $mysqli->prepare($select);
+            $row->execute(array(':id' => $id, ':name' => $username, ':token' => $token));
+            if ($row->rowCount() == 1) $array['error'] = 0;
+        }
+    } else $array['errorMessage'] = 'Sesion invalida';
+
     echo json_encode($array);
 }
 
-function getCity($mysqli, $country) {
-    $array = [];
-    $select = "SELECT Id, Name from city WHERE CountryCode = :country";
+function getUserId($mysqli, $name, $token) {
+    $select = "SELECT * FROM user WHERE Username = :name AND Token = :token";
     $row = $mysqli->prepare($select);
-    $row->execute(array(':country' => $country));
-    while ($row2 = $row->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) array_push($array, $row2);
-    $mysqli = null;
-    echo json_encode($array);
+    $row->execute(array(':name' => $name, ':token' => $token));
+    return $row->rowCount() == 1 ? $row->fetch()['Id'] : -1;
 }
 
-function register($mysqli, $name, $password, $password_confirm, $email, $bornDate, $bornCity) {
-    $response['auth'] = 0;
-    if ($name != "" && $password != "" && $password_confirm != "" && $email != "" && $bornDate != "" && $bornCity != "") {
-        if ($password == $password_confirm) {
-            $exist = userExist($mysqli, $name);
-
-            if (!$exist) {
-                $bornDate = date("Y-m-d", strtotime($bornDate));
-                $select = "INSERT INTO `user` (`Id`, `Username`, `Password`, `Rol`, `Email`, `DateBorn`, `IdCity`) VALUES(default, :name, :password, 'user', :email, :bornDate, :bornCity)";
-                $row = $mysqli->prepare($select);
-                $row->execute(array(':name' => $name ,':password' => $password , ':email' => $email , ':bornDate' => $bornDate , ':bornCity' => $bornCity));
-
-                if ($row->rowCount() == 1) {
-                    $response['auth'] = 1;
-                    $id = $mysqli->lastInsertId();
-                    $response['id'] = $id;
-                    $response['username'] = $name;
-                    $response['token'] = Auth::SignIn([
-                        'id' => $id,
-                        'name' => $name
-                    ]);
-                }
-            } else $response['error'] = "El nombre de usuario ya existe";
-        } else $response['error'] = "Las contraseñas no coinciden";
-    } else $response['error'] = "Hay campos vacios";
-    $mysqli = null;
-    echo json_encode($response);
-}
-
-function userExist($mysqli, $name) {
-    $select = "SELECT * FROM user WHERE Username = :name";
-    $row = $mysqli->prepare($select);
-    $row->execute(array(':name' => $name));
-    $mysqli = null;
-    return $row->rowCount();
-}
-
+$mysqli = null;

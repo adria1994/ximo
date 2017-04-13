@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 11, 2017 at 06:18 PM
+-- Generation Time: Apr 13, 2017 at 08:03 PM
 -- Server version: 5.7.16-0ubuntu0.16.04.1
 -- PHP Version: 7.1.0-2+deb.sury.org~xenial+1
 
@@ -5403,9 +5403,21 @@ INSERT INTO `countrylanguage` (`CountryCode`, `Language`, `IsOfficial`, `Percent
 CREATE TABLE `game` (
   `Id` int(11) NOT NULL,
   `Fecha` date NOT NULL,
-  `Edad` int(3) NOT NULL,
+  `Edad` int(3) DEFAULT NULL,
   `Id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `game`
+--
+
+INSERT INTO `game` (`Id`, `Fecha`, `Edad`, `Id_user`) VALUES
+(1, '2017-04-13', NULL, 1),
+(2, '2017-04-13', NULL, 6),
+(3, '2017-04-13', NULL, 6),
+(4, '2017-04-13', NULL, 6),
+(5, '2017-04-13', NULL, 6),
+(6, '2017-04-13', NULL, 6);
 
 -- --------------------------------------------------------
 
@@ -5424,6 +5436,17 @@ CREATE TABLE `question` (
   `IdTheme` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `question`
+--
+
+INSERT INTO `question` (`Id`, `Statement`, `Answer1`, `Answer2`, `Answer3`, `Answer4`, `CorrectAnswer`, `IdTheme`) VALUES
+(1, 'Cuantos años tiene Dani?', '20', '19', '21', '18', 2, 1),
+(2, 'Cuantos años tiene Dani?', '20', '19', '21', '18', 2, 1),
+(3, 'Otra pregunta', '12', '23', '43', '45', 1, 1),
+(4, 'qwe', 'qwe', 'qwe', 'qwe', 'qew', 1, 1),
+(5, 'asd', 'asd', 'asd', 'sa', 'asd', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -5432,7 +5455,8 @@ CREATE TABLE `question` (
 
 CREATE TABLE `question_game` (
   `IdQuestion` int(11) NOT NULL,
-  `IdGame` int(11) NOT NULL
+  `IdGame` int(11) NOT NULL,
+  `Response` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -5445,6 +5469,13 @@ CREATE TABLE `theme` (
   `Id` int(11) NOT NULL,
   `Name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `theme`
+--
+
+INSERT INTO `theme` (`Id`, `Name`) VALUES
+(1, 'Otros');
 
 -- --------------------------------------------------------
 
@@ -5460,21 +5491,23 @@ CREATE TABLE `user` (
   `Rol` varchar(20) NOT NULL,
   `Email` varchar(100) NOT NULL,
   `DateBorn` date NOT NULL,
-  `IdCity` int(11) DEFAULT NULL
+  `IdCity` int(11) DEFAULT NULL,
+  `CurrentGame` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`Id`, `Username`, `Password`, `Token`, `Rol`, `Email`, `DateBorn`, `IdCity`) VALUES
-(1, 'dani', 'austria', '', 'user', 'daniellopez@iesjoandaustria.org', '2017-04-01', 64),
-(2, 'daniel', 'austria1', '', 'user', 'dlopezsmx2013@gmail.com', '1998-04-01', 654),
-(3, 'daniel2\' \\\'', 'asdasd1', '', 'user', 'dlopezsmx2013@gmail.com', '1999-04-01', 129),
-(4, 'daniel2\' \\\' " hola = 0 "', 'asdasd1', '', 'user', 'dlopezsmx2013@gmail.com', '1999-04-01', 129),
-(5, 'dlopez', 'austria1', '', 'user', 'dlopezsmx2013@gmail.com', '1997-04-01', 129),
-(6, 'daniel1', 'asdasd1', '', 'user', 'asdasd@asd.sad', '1997-04-01', 129),
-(7, 'asdsasadasd', 'adsads1', '', 'user', 'asdasd@asda.asd', '1984-04-04', 129);
+INSERT INTO `user` (`Id`, `Username`, `Password`, `Token`, `Rol`, `Email`, `DateBorn`, `IdCity`, `CurrentGame`) VALUES
+(1, 'dani', 'austria', '', 'user', 'daniellopez@iesjoandaustria.org', '2017-04-01', 64, NULL),
+(2, 'daniel', 'austria1', '', 'user', 'dlopezsmx2013@gmail.com', '1998-04-01', 654, NULL),
+(3, 'daniel2\' \\\'', 'asdasd1', '', 'user', 'dlopezsmx2013@gmail.com', '1999-04-01', 129, 2),
+(4, 'daniel2\' \\\' " hola = 0 "', 'asdasd1', '', 'user', 'dlopezsmx2013@gmail.com', '1999-04-01', 129, 2),
+(5, 'dlopez', 'austria1', '', 'user', 'dlopezsmx2013@gmail.com', '1997-04-01', 129, NULL),
+(6, 'daniel1', 'asdasd1', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0OTIxMDQ2ODksImF1ZCI6IjA1NTc2NjQxN2NlNDI5YzgzODk3NDhmMTg5OGM3YzYyYTY1NjA1NTEiLCJkYXRhIjp7ImlkIjoiNiIsIm5hbWUiOiJkYW5pZWwxIn19.FvwWKUeJPleryZoO17BZj_aAjV3snL0RP73Yf4T7zzM', 'user', 'asdasd@asd.sad', '1997-04-01', 129, 6),
+(7, 'asdsasadasd', 'adsads1', '', 'user', 'asdasd@asda.asd', '1984-04-04', 129, NULL),
+(8, 'daniel10', 'asdasd1', NULL, 'user', 'asdasd@asd.asd', '1997-04-01', 129, NULL);
 
 --
 -- Indexes for dumped tables
@@ -5533,7 +5566,8 @@ ALTER TABLE `theme`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`Id`),
   ADD UNIQUE KEY `Username` (`Username`),
-  ADD KEY `FK_USER_CITY` (`IdCity`);
+  ADD KEY `FK_USER_CITY` (`IdCity`),
+  ADD KEY `CurrentGame` (`CurrentGame`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -5548,22 +5582,22 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT for table `game`
 --
 ALTER TABLE `game`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `question`
 --
 ALTER TABLE `question`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `theme`
 --
 ALTER TABLE `theme`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- Constraints for dumped tables
 --
@@ -5597,7 +5631,8 @@ ALTER TABLE `question_game`
 -- Constraints for table `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`IdCity`) REFERENCES `city` (`Id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`IdCity`) REFERENCES `city` (`Id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_ibfk_2` FOREIGN KEY (`CurrentGame`) REFERENCES `game` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
