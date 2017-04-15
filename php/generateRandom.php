@@ -5,4 +5,3 @@ function getRandoms($length, $array) {
     } while (in_array($rand, $array));
     return $rand;
 }
-var_dump(getRandoms(10, [1,2,3,4,5,6,7]));
