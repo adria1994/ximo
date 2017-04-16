@@ -27,11 +27,12 @@ function game(Id, Statement, Answer1, Answer2, Answer3, Answer4) {
     $('#Answer2').html(Answer2);
     $('#Answer3').html(Answer3);
     $('#Answer4').html(Answer4);
+
     var click = "";
     $('#game button').click(function () {
        click = $(this).attr('id');
     }).blur();
-    console.log("Game");
+
     $('.progress-bar-fill').delay(10).queue(function () {
         $(this).css('transition','width 3s ease-in-out').css('width', '100%');
         $(this).dequeue();

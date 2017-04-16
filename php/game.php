@@ -24,6 +24,7 @@ switch (@$_POST['funcion']){
 function createGame($mysqli, $username, $token) {
     $array = [];
     $array['error'] = 1;
+    $array['finish'] = 0;
     $array['errorMessage'] = '';
 
     $idUser = getUserId($mysqli, $username, $token);
@@ -57,23 +58,23 @@ function updateGame($mysqli, $username, $token, $idPregunta, $answer) {
     $idUser = getUserId($mysqli, $username, $token);
     $currentGame = getCurrentGame($mysqli, $username, $token);
     if ($idUser > 0) {
-        if (!finishGame($mysqli, $idUser)) {
-            $select = "INSERT INTO `question_game` (`IdQuestion`, `IdGame`, `Response`) VALUES (:question, :game, " . ($answer == "" ? "NULL" : ":response") . ")";
-            $row = $mysqli->prepare($select);
+        $select = "INSERT INTO `question_game` (`IdQuestion`, `IdGame`, `Response`) VALUES (:question, :game, " . ($answer == "" ? "NULL" : ":response") . ")";
+        $row = $mysqli->prepare($select);
 
-            $params = array(':question' => $idPregunta, ':game' => $currentGame);
-            if ($answer != "") $params[':response'] = $answer;
+        $params = array(':question' => $idPregunta, ':game' => $currentGame);
+        if ($answer != "") $params[':response'] = $answer;
 
-            $row->execute($params);
+        $row->execute($params);
 
-            if ($row->rowCount() == 1) {
+        if ($row->rowCount() == 1) {
+            if (finishGame($mysqli, $currentGame) != TRUE) {
                 $array['error'] = 0;
                 $array = array_merge($array, getRandomQuestion($mysqli, $currentGame)[0]);
-            } else $array['errorMessage'] = 'Pregunta invalida';
-        } else {
-            $array['error'] = 0;
-            $array['finish'] = 1;
-        }
+            }  else {
+                $array['error'] = 0;
+                $array['finish'] = 1;
+            }
+        }else $array['errorMessage'] = 'Pregunta invalida';
     } else $array['errorMessage'] = 'Sesion invalida';
 
     echo json_encode($array);
@@ -119,13 +120,13 @@ function getQuestionGame($mysqli, $id) {
     }
     return $array;
 }
-echo finishGame($mysqli, 69);
+
 function finishGame($mysqli, $id) {
     $select = "SELECT COUNT(*) as cantidad FROM question_game WHERE IdGame = :id";
     $row = $mysqli->prepare($select);
     $row->execute(array(':id' => $id));
-    echo intval($row->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)['cantidad']) . ">=" . maxQuestionGame;
-    return intval($row->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)['cantidad']) >= 10 ? 'TRUE' : 'FALSE';
+    $num = (int)$row->fetch(PDO::FETCH_ASSOC)['cantidad'];
+    return ($num >= maxQuestionGame);
 }
 
 function getUserId($mysqli, $name, $token) {
