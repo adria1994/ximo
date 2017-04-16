@@ -50,14 +50,20 @@ function register($mysqli, $name, $password, $password_confirm, $email, $bornDat
                 $row->execute(array(':name' => $name ,':password' => $password , ':email' => $email , ':bornDate' => $bornDate , ':bornCity' => $bornCity));
 
                 if ($row->rowCount() == 1) {
-                    $response['auth'] = 1;
                     $id = $mysqli->lastInsertId();
-                    $response['id'] = $id;
-                    $response['username'] = $name;
-                    $response['token'] = Auth::SignIn([
+                    $token = Auth::SignIn([
                         'id' => $id,
                         'name' => $name
                     ]);
+
+                    $response['auth'] = 1;
+                    $response['id'] = $id;
+                    $response['username'] = $name;
+                    $response['token'] = $token;
+
+                    $select = "UPDATE user SET Token = :token WHERE Id = :id";
+                    $row = $mysqli->prepare($select);
+                    $row->execute(array(':token' => $token, ':id' => $id));
                 }
             } else $response['error'] = "El nombre de usuario ya existe";
         } else $response['error'] = "Las contraseñas no coinciden";

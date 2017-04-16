@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="es">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../js/jqueryUI/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/gameStyles.css">
     <script src="https://use.fontawesome.com/c7b77a6ac8.js"></script>
     <title>Register Ajax</title>
 
@@ -32,12 +33,13 @@
 
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right" id="menu">
-                    <li><a id="showLogin">Login</a></li>
-                    <li><a id="showRegister">Register</a></li>
+
+
                 </ul>
             </div>
         </div>
     </nav>
+    <div id="content" class="container" style="height: 80vh"></div>
     <div id="dialog" class="container"></div>
 </div>
 <script src="https://code.jquery.com/jquery-2.1.4.js"></script>

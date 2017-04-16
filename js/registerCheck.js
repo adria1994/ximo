@@ -75,7 +75,7 @@ function checkUser(){
 }
 function checkPassword(){
     var password = $('#password').val();
-    return password.match(/^(?=.*\d)(?=.*[a-z])[0-9a-zA-ZñÑ]{6,}$/);
+    return !!password.match(/^(?=.*\d)(?=.*[a-z])[0-9a-zA-ZñÑ]{6,}$/);
 }
 function checkDate(){
     var limitDate = moment();
