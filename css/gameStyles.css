@@ -56,5 +56,86 @@
     background: white;
     border-radius: 3px;
     transition: width 3s ease-in-out;
-/*rgba(25, 255, 253, 0.43);*/
+}
+#manTalking{
+    display: table-cell;
+    max-width: 230px;
+    padding-right: 40px;
+}
+#dialogResults{
+    margin: 0 auto;
+    background-color: white;
+    display: table;
+    border-radius:2%;
+}
+#balloon{
+    border-radius: 50%;
+    background-color: white;
+    border-color: black;
+    border: solid 2px;
+    display: table-cell;
+}
+#text{
+    padding: 50px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+#triangleBalloon {
+    transform: rotate(-3deg);
+    height: 0px;
+    width: 0px;
+    border: 25px solid transparent;
+    border-bottom-color: black;
+    border-left-color: black;
+    position: absolute;
+    bottom: 203px;
+    left: 555px;
+}
+#borderTriangle {
+    height: 0px;
+    width: 0px;
+    border: 25px solid transparent;
+    border-bottom-color: white;
+    border-left-color: white;
+    position: absolute;
+    bottom: -23px;
+    left: -23px;
+}
+#finishedGame{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    color: white;
+}
+#goProfile{
+    display: block;
+    max-width: 510px;
+    height: 50px;
+    margin: 10px auto 0;
+}
+#goProfile > p {
+    font-size: 30px;
+}
+#profileName{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    color: white;
+}
+#userProfile{
+    border: 2px white solid;
+    border-radius: 1%;
+    min-height: 550px;
+    min-width: 400px;
+    background-color: black;
+}
+#userProfile h2{
+    margin-top: 50px;
+    text-align: center;
+    color: white;
+}
+#userProfile p{
+    color: white;
+    font-size: 20px;
 }
