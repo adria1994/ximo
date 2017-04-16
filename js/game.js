@@ -12,7 +12,7 @@ function startGame() {
         success: function (data) {
             if (data.error == 0) {
                 $('#content').load('./game.html', function () {
-                    game(data.Statement, data.Answer1, data.Answer2, data.Answer3, data.Answer4);
+                    game(data.IdPregunta, data.Statement, data.Answer1, data.Answer2, data.Answer3, data.Answer4);
                 });
             } else {
                 $('#errorCreateGame').html(data.errorMessage);
@@ -21,34 +21,47 @@ function startGame() {
     });
 }
 
-function game(Statement, Answer1, Answer2, Answer3, Answer4) {
+function game(Id, Statement, Answer1, Answer2, Answer3, Answer4) {
     $('#Statement').html(Statement);
     $('#Answer1').html(Answer1);
     $('#Answer2').html(Answer2);
     $('#Answer3').html(Answer3);
     $('#Answer4').html(Answer4);
-    // TODO Buscar callback del delay
-    $('.progress-bar-fill').delay(1000).queue(function () {
-        $(this).css('width', '100%')
+
+    var click = "";
+    $('#game button').click(function () {
+       click = $(this).attr('id');
+    }).blur();
+
+    $('.progress-bar-fill').delay(10).queue(function () {
+        $(this).css('transition','width 3s ease-in-out').css('width', '100%');
+        $(this).dequeue();
+    }).delay(3000).queue(function () {
+        updateGame(Id, click.slice(-1));
+        $(this).dequeue();
     });
-    updateGame();
 }
 
-function updateGame() {
+function updateGame(IdPregunta, answer) {
     $.ajax({
         type: 'POST',
         url: '../php/game.php',
         dataType: 'json',
         data: {
-            // TODO Mandar todos los datos
             funcion: 'update',
             username: localStorage.username,
-            token: localStorage.token
+            token: localStorage.token,
+            idPregunta: IdPregunta,
+            answer: answer
         },
         success: function (data) {
+            $('.progress-bar-fill').css('transition','none').css('width', '1%');
             if (data.error == 0) {
                 if (data.finish == 0) {
-                    game();
+                    game(data.IdPregunta, data.Statement, data.Answer1, data.Answer2, data.Answer3, data.Answer4);
+                } else {
+                    alert('Finish');
+                    $('#content').load('./startGame.html');
                 }
             } else {
                 $('#errorCreateGame').html(data.errorMessage);
