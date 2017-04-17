@@ -22,7 +22,7 @@ switch (@$_POST['funcion']){
 }
 
 function createGame($mysqli, $username, $token) {
-    $array = [];
+    $array = array();
     $array['error'] = 1;
     $array['finish'] = 0;
     $array['errorMessage'] = '';
@@ -40,8 +40,9 @@ function createGame($mysqli, $username, $token) {
             $row->execute(array(':id' => $idGame, ':name' => $username, ':token' => $token));
             if ($row->rowCount() == 1) {
                 $array['error'] = 0;
+                $random = getRandomQuestion($mysqli, $idGame)[0];
 
-                $array = array_merge($array, getRandomQuestion($mysqli, $idGame)[0]);
+                if ($random != null)$array = array_merge($array, $random);
             }
         }
     } else $array['errorMessage'] = 'Sesion invalida';
@@ -98,6 +99,7 @@ function getRandomQuestion($mysqli, $idGame) {
             'Answer4' => $row2['Answer4'],
         );
     }
+
     return $array;
 }
 
@@ -143,4 +145,4 @@ function getCurrentGame($mysqli, $name, $token) {
     return $row->rowCount() == 1 ? $row->fetch()['CurrentGame'] : -1;
 }
 
-$mysqli = null;
+//$mysqli = null;
