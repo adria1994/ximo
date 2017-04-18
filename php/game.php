@@ -175,6 +175,10 @@ function getAgeOfGame($mysqli, $currentGame) {
 
     $edad = 100 - ($cantidad * 10) + rand(1,9);
 
+    $select = "UPDATE `game` SET `Edad` = :edad WHERE Id = :id";
+    $row = $mysqli->prepare($select);
+    $row->execute(array(':edad' => $edad, ':id' => $currentGame));
+
     return array('cantidad' => $cantidad, 'edad' => $edad);
 }
 
