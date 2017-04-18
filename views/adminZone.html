@@ -11,7 +11,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
 </head>
 <body class="admin">
-<button id="gameZone" class="btn btn-response">Volver al juego</button>
 </ul>
 <div class="container">
     <h2>Administración de preguntas</h2>
@@ -27,7 +26,7 @@
                 </button>
             </div>
             <div class="pull-right search mb20">
-                <input class="form-control" type="text" placeholder="Search">
+                <button id="gameZone" class="btn btn-default">Volver al juego</button>
             </div>
             <div class="pull-left search md20">
                 <button class="btn btn-default" id="deleteUser" type="button" name="refresh" aria-label="refresh" title="Refresh">
@@ -67,7 +66,7 @@
         editQuestion();
     });
     $("#gameZone").click(function(){
-        $(location).attr('href','./register.html');
+        $(location).attr('href','./index.html');
     })
 </script>
 </body>

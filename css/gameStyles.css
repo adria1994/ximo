@@ -72,7 +72,6 @@
     background-color: white;
     border-color: black;
     border: solid 2px;
-    display: table-cell;
 }
 #text{
     padding: 50px;
@@ -81,15 +80,15 @@
 }
 
 #triangleBalloon {
-    transform: rotate(-3deg);
+    transform: rotate(-5.0deg);
     height: 0px;
     width: 0px;
     border: 25px solid transparent;
     border-bottom-color: black;
     border-left-color: black;
     position: absolute;
-    bottom: 203px;
-    left: 555px;
+    bottom: 217px;
+    left: 563px;
 }
 #borderTriangle {
     height: 0px;
@@ -114,6 +113,7 @@
     margin: 10px auto 0;
 }
 #goProfile > p {
+    line-height: 33px;
     font-size: 30px;
 }
 #profileName{

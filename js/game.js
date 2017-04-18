@@ -28,7 +28,6 @@ function game(Id, Statement, Answer1, Answer2, Answer3, Answer4) {
     $('#Answer2').html(Answer2);
     $('#Answer3').html(Answer3);
     $('#Answer4').html(Answer4);
-
     var click = "";
     $('#game button').click(function () {
        click = $(this).attr('id');
@@ -72,4 +71,19 @@ function updateGame(IdPregunta, answer) {
             }
         }
     });
+}
+function sameWidthButtons() {
+
+    var greatestWidth = 0;
+
+    $('.gamebutton').each(function() {
+
+        var width = $(this).width();
+
+        if( width < greatestWidth) {
+            greatestWidth = width;
+        }
+    });
+
+    $('.gamebutton').width(greatestWidth);
 }

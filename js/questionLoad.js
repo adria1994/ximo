@@ -6,7 +6,6 @@
 });*/
 
 function loadQuestions() {
-    console.log("Hola")
     $('#content').load('questionLoad.html');
 
     $.ajax({
