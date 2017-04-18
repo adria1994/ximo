@@ -16,9 +16,6 @@ switch (@$_POST['funcion']){
         $answer = $_POST['answer'];
         updateGame($mysqli, $username, $token, $idPregunta, $answer);
         break;
-    case 'finish';
-        finish($mysqli, $username, $token);
-        break;
 }
 
 function createGame($mysqli, $username, $token) {
@@ -73,6 +70,10 @@ function updateGame($mysqli, $username, $token, $idPregunta, $answer) {
                 $random = getRandomQuestion($mysqli, $currentGame)[0];
                 $array = array_merge($array, $random);
             }  else {
+                finish($mysqli, $idUser);
+                $game = getAgeOfGame($mysqli, $currentGame);
+
+                $array = array_merge($array, $game);
                 $array['error'] = 0;
                 $array['finish'] = 1;
             }
@@ -157,6 +158,30 @@ function getCurrentGame($mysqli, $name, $token) {
     $row = $mysqli->prepare($select);
     $row->execute(array(':name' => $name, ':token' => $token));
     return $row->rowCount() == 1 ? $row->fetch()['CurrentGame'] : -1;
+}
+
+function getAgeOfGame($mysqli, $currentGame) {
+    $cantidad = 0;
+
+    $select = "SELECT COUNT(*) as cantidad FROM question_game JOIN question " .
+        " ON question_game.IdQuestion = question.Id AND question_game.Response = question.CorrectAnswer " .
+        " WHERE IdGame = :id";
+    $row = $mysqli->prepare($select);
+    $row->execute(array(':id' => $currentGame));
+
+    while ($row2 = $row->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
+        $cantidad = (int)$row2['cantidad'];
+    }
+
+    $edad = 100 - ($cantidad * 10) + rand(1,9);
+
+    return array('cantidad' => $cantidad, 'edad' => $edad);
+}
+
+function finish($mysqli, $idUser) {
+    $select = "UPDATE `user` SET `CurrentGame` = null WHERE Id = :id";
+    $row = $mysqli->prepare($select);
+    $row->execute(array(':id' => $idUser));
 }
 
 $mysqli = null;
