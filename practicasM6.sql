@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 18-04-2017 a las 20:55:52
+-- Tiempo de generación: 18-04-2017 a las 23:35:24
 -- Versión del servidor: 5.7.17-0ubuntu0.16.04.1
 -- Versión de PHP: 7.0.15-0ubuntu0.16.04.4
 
@@ -5412,10 +5412,17 @@ CREATE TABLE `game` (
 --
 
 INSERT INTO `game` (`Id`, `Fecha`, `Edad`, `Id_user`) VALUES
-(1, '2017-04-18', NULL, 1),
-(2, '2017-04-18', NULL, 1),
-(3, '2017-04-18', NULL, 1),
-(4, '2017-04-18', NULL, 1);
+(5, '2017-04-18', 17, 3),
+(6, '2017-04-18', 61, 3),
+(7, '2017-04-18', 39, 3),
+(8, '2017-04-18', 109, 3),
+(9, '2017-04-18', 47, 1),
+(10, '2017-04-18', 35, 1),
+(11, '2017-04-18', 99, 1),
+(12, '2017-04-18', 109, 1),
+(13, '2017-04-18', NULL, 1),
+(14, '2017-04-18', 104, 1),
+(15, '2017-04-18', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -5439,7 +5446,22 @@ CREATE TABLE `question` (
 --
 
 INSERT INTO `question` (`Id`, `Statement`, `Answer1`, `Answer2`, `Answer3`, `Answer4`, `CorrectAnswer`, `IdTheme`) VALUES
-(1, 'Capital de España', 'Barcelona', 'Madrid', 'Sevilla', 'Singapour', 2, 4);
+(1, 'Capital de España', 'Barcelona', 'Madrid', 'Sevilla', 'Singapour', 2, 4),
+(2, 'Quien gano el balon de oro en 2016?', 'Lionel Messi', 'Cristiano Ronaldo', 'Pep Guardiola', 'Gerard Piqué', 2, 1),
+(3, 'De que cuidad es el Futbol Club Barcelona?', 'Barcelona', 'España', 'Madrid', 'Italia', 1, 1),
+(4, 'Cual es el rio más largo de España?', 'Río Ebro', 'Río Tajo', 'Río Miño', 'Ninguno de los anteriores', 2, 4),
+(5, 'Quien pinto la Mona Lisa?', 'Leonardo da Vinci', 'Pablo Picasso', 'Salvador Dalí', 'Francisco De Goya', 1, 3),
+(6, 'Donde se encuentra la Rivera Maya?', 'España', 'EEUU', 'Mexico', 'Italia', 3, 1),
+(7, 'Donde esta el muro de Berlin?', 'China', 'Japon', 'Russia', 'Alemania', 4, 4),
+(8, 'Cuantos planetas hay en el sistema solar?', '8', '9', '7', '2', 1, 2),
+(9, 'De que color son las mangas de un chaleco azul?', 'Azul', 'Negras', 'Un chaleco no tiene mangas', 'Ninguna de las anteriores', 1, 2),
+(10, 'De donde esta Cristiano Ronaldo', 'Portugal', 'Brasil', 'España', 'Andorra', 1, 1),
+(20, 'Qué significa FIFA?', 'Fédération Internationale de Football Association', 'Fédération Intermediaria de Football Association', 'Fédération Internationale de Figuras Astronomas', 'Fincas Internationale de Football Association', 1, 1),
+(21, 'Donde se disputó la final de la Champions League 2014?', 'Estadio Da Luz', 'Estadio Do Dragao', 'Estadio José Alvalade', 'Estadio do Bonfim', 1, 1),
+(22, 'Cual es el idioma mas hablado del mundo?', 'Ingles', 'Chino', 'Español', 'Ruso', 2, 4),
+(23, 'Por donde se pone el sol?', 'Norte', 'Sur', 'Este', 'Oeste', 4, 2),
+(24, 'Rojo + Verde?', 'Amarillo', 'Naranja', 'Azul', 'Blanco', 1, 2),
+(25, 'La tierra gira alrededor de...', 'Marte', 'Saturno', 'Si misma', 'Sol', 4, 2);
 
 -- --------------------------------------------------------
 
@@ -5452,6 +5474,103 @@ CREATE TABLE `question_game` (
   `IdGame` int(11) NOT NULL,
   `Response` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `question_game`
+--
+
+INSERT INTO `question_game` (`IdQuestion`, `IdGame`, `Response`) VALUES
+(1, 5, 2),
+(1, 6, NULL),
+(1, 7, 1),
+(1, 10, 1),
+(1, 11, NULL),
+(1, 12, 3),
+(2, 5, 2),
+(2, 6, NULL),
+(2, 7, 2),
+(2, 8, NULL),
+(2, 10, 2),
+(2, 11, NULL),
+(2, 12, NULL),
+(2, 14, NULL),
+(3, 5, 1),
+(3, 6, 1),
+(3, 7, 1),
+(3, 8, NULL),
+(3, 12, NULL),
+(3, 14, 2),
+(4, 5, 2),
+(4, 6, 3),
+(4, 7, 2),
+(4, 8, NULL),
+(4, 9, 3),
+(4, 14, 3),
+(5, 5, 1),
+(5, 6, 1),
+(5, 7, 1),
+(5, 9, 1),
+(5, 10, 1),
+(5, 14, NULL),
+(6, 5, 3),
+(6, 6, 2),
+(6, 7, 3),
+(6, 8, NULL),
+(6, 10, 3),
+(6, 14, NULL),
+(6, 15, NULL),
+(7, 5, 4),
+(7, 6, 4),
+(7, 7, 1),
+(7, 9, 4),
+(7, 10, 4),
+(7, 14, 2),
+(8, 5, 1),
+(8, 6, 1),
+(8, 7, 1),
+(8, 9, 1),
+(8, 10, 1),
+(8, 11, NULL),
+(8, 12, NULL),
+(8, 14, 4),
+(9, 5, 4),
+(9, 6, NULL),
+(9, 7, 1),
+(9, 8, NULL),
+(9, 9, 3),
+(9, 11, 1),
+(9, 12, NULL),
+(10, 5, 1),
+(10, 6, NULL),
+(10, 7, NULL),
+(10, 8, NULL),
+(10, 9, 1),
+(10, 10, NULL),
+(10, 11, NULL),
+(20, 8, NULL),
+(20, 9, 3),
+(20, 11, NULL),
+(20, 12, NULL),
+(20, 14, NULL),
+(21, 8, NULL),
+(21, 9, 1),
+(21, 11, NULL),
+(21, 12, NULL),
+(21, 14, NULL),
+(22, 9, 2),
+(22, 10, 1),
+(22, 11, NULL),
+(22, 12, NULL),
+(23, 10, 4),
+(23, 11, NULL),
+(24, 8, NULL),
+(24, 9, 2),
+(24, 12, NULL),
+(25, 8, NULL),
+(25, 10, 4),
+(25, 11, 3),
+(25, 12, NULL),
+(25, 14, 1);
 
 -- --------------------------------------------------------
 
@@ -5472,7 +5591,7 @@ INSERT INTO `theme` (`Id`, `Name`) VALUES
 (1, 'Deportes'),
 (2, 'Ciencias'),
 (3, 'Arte'),
-(4, 'Risas');
+(4, 'Geografia');
 
 -- --------------------------------------------------------
 
@@ -5497,9 +5616,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`Id`, `Username`, `Password`, `Token`, `Rol`, `Email`, `DateBorn`, `IdCity`, `CurrentGame`) VALUES
-(1, 'pepe', 'Pepe', NULL, 'user', 'pepe@gmail.com', '2017-04-01', 129, 4),
+(1, 'pepe', 'Pepe', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0OTI1NTM5MDMsImF1ZCI6IjVhYjJkODZmNjk1YjUxMjgxNTE5ODk0NjcxZmY1NzllYjZhMjZkYWQiLCJkYXRhIjp7ImlkIjoiMSIsIm5hbWUiOiJwZXBlIn19.h-VoS2lsdzi9Xkma7Oe4EiEK0lhKs-9BZebYz-2vfb0', 'user', 'pepe@gmail.com', '2017-04-01', 129, 15),
 (2, 'pepa', 'Pepa', NULL, 'user', 'pepa@gmail.com', '2017-04-01', 129, NULL),
-(3, 'superpepe', '12345', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0OTI1NDQxMjUsImF1ZCI6ImY0MzMxMGEzMjM4ZjM3MTk1ZGRjNTFjN2U0OTdhNDRmMjVlOTI4NTgiLCJkYXRhIjp7ImlkIjoiMyIsIm5hbWUiOiJzdXBlcnBlcGUifX0.OiPAbrPH7NroulyP9LSpfYqeKJ3-ijlHdLr4NciiHA8', 'admin', 'superpepe@gmail.com', '2017-04-01', 129, NULL);
+(3, 'superpepe', '12345', NULL, 'admin', 'superpepe@gmail.com', '2017-04-01', 129, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -5574,12 +5693,12 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT de la tabla `game`
 --
 ALTER TABLE `game`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT de la tabla `question`
 --
 ALTER TABLE `question`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT de la tabla `theme`
 --
