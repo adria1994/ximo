@@ -125,7 +125,6 @@
 #userProfile{
     border: 2px white solid;
     border-radius: 1%;
-    min-height: 550px;
     min-width: 400px;
     background-color: black;
 }
@@ -137,4 +136,10 @@
 #userProfile p{
     color: white;
     font-size: 20px;
+}
+.container{
+    padding-right: 0px;!important;
+    padding-left: 0px;!important;
+    margin-right: auto;!important;
+    margin-left: auto;!important;
 }
