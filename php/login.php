@@ -16,9 +16,13 @@ function login($mysqli, $user, $pass) {
     $row = $mysqli->prepare($select);
     $row->execute(array(':user' => $user, ':pass' => $pass));
 
+
     if ($row->rowCount() == 1) {
 
-        $id = $row->fetch()['Id'];
+        $usuario = $row->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT);
+        $id = $usuario["Id"];
+        $rol = $usuario["Rol"];
+
         $token = Auth::SignIn([
             'id' => $id,
             'name' => $user
@@ -32,6 +36,8 @@ function login($mysqli, $user, $pass) {
         $response['id'] = $id;
         $response['username'] = $user;
         $response['token'] = $token;
+        $response['rol'] = $rol;
+
     }
 
     echo json_encode($response);

@@ -69,9 +69,10 @@ function checkLogin(){
                 localStorage.auth = 1;
                 localStorage.username = data.username;
                 localStorage.token = data.token;
+                var rol = data.rol;
                 $('.usuarioErrors').removeClass('ui-state-error').html('');
                 $('#dialog').dialog('close');
-                auth();
+                auth(rol);
             } else {
                 localStorage.auth = 0;
                 localStorage.token = '';
