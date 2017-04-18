@@ -3,7 +3,7 @@ include_once('connect.php');
 
 switch ($_POST['funcion']){
     case 'loadTable':
-        loadTable($mysqli, $_POST['country']);
+        loadTable($mysqli);
         break;
     case 'loadThemes':
         loadThemes($mysqli);
@@ -28,7 +28,7 @@ function loadQuestion($mysqli){
     $mysqli = null;
     echo json_encode($array);
 }
-function loadTable($mysqli, $country){
+function loadTable($mysqli){
     $array = [];
     foreach ($mysqli->query('SELECT question.Id,Name,Statement from question join theme on question.IdTheme = theme.Id;') as $row) array_push($array, $row);
     $mysqli = null;
