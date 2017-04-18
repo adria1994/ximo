@@ -21,7 +21,9 @@ USE practicasM6;
 --
 -- Database: `practicasM6`
 --
-
+drop database practicasM6;
+create database practicasM6;
+use practicasM6;
 -- --------------------------------------------------------
 
 --
@@ -5449,6 +5451,11 @@ CREATE TABLE `theme` (
   `Name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+insert into theme values (default, "Deportes");
+insert into theme values (default, "Ciencias");
+insert into theme values (default, "Arte");
+insert into theme values (default, "Risas");
 -- --------------------------------------------------------
 
 --
