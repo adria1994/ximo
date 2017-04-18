@@ -1,7 +1,7 @@
 <?php
 include_once('connect.php');
 include_once('generateRandom.php');
-define('maxQuestionGame',3);
+define('maxQuestionGame',10);
 
 switch (@$_POST['funcion']){
     case 'create':
