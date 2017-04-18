@@ -16,9 +16,6 @@ switch (@$_POST['funcion']){
         $answer = $_POST['answer'];
         updateGame($mysqli, $username, $token, $idPregunta, $answer);
         break;
-    case 'finish';
-        finish($mysqli, $username, $token);
-        break;
 }
 
 function createGame($mysqli, $username, $token) {
@@ -73,6 +70,9 @@ function updateGame($mysqli, $username, $token, $idPregunta, $answer) {
                 $random = getRandomQuestion($mysqli, $currentGame)[0];
                 $array = array_merge($array, $random);
             }  else {
+                $select = "UPDATE `user` SET `CurrentGame` = null WHERE Username = :name AND Token = :token";
+                $row = $mysqli->prepare($select);
+                $row->execute(array(':name' => $username, ':token' => $token));
                 $array['error'] = 0;
                 $array['finish'] = 1;
             }
