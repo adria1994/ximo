@@ -62,7 +62,7 @@ function updateGame(IdPregunta, answer) {
                     game(data.IdPregunta, data.Statement, data.Answer1, data.Answer2, data.Answer3, data.Answer4);
                 } else {
                     alert('Finish');
-                    $('#content').load('./startGame.html');
+                    $('#content').load('./gameResults.html');
                 }
             } else {
                 $('#errorCreateGame').html(data.errorMessage);
