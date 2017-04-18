@@ -93,6 +93,7 @@ function getRandomQuestion($mysqli, $idGame) {
     } else {
         $num = $idAllQuestions[rand(1,sizeof($idAllQuestions))-1];
     }
+
     $select = "SELECT * FROM question WHERE Id = :id";
     $row = $mysqli->prepare($select);
     $row->execute(array(':id' => $num));
