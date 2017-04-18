@@ -40,13 +40,12 @@ function createGame($mysqli, $username, $token) {
             $row->execute(array(':id' => $idGame, ':name' => $username, ':token' => $token));
             if ($row->rowCount() == 1) {
                 $array['error'] = 0;
-                $random = getRandomQuestion($mysqli, $idGame)[0];
+                $random = getRandomQuestion($mysqli, $idGame);
 
                 if ($random != null)$array = array_merge($array, $random);
             }
         }
     } else $array['errorMessage'] = 'Sesion invalida';
-
     echo json_encode($array);
 }
 
@@ -87,8 +86,7 @@ function getRandomQuestion($mysqli, $idGame) {
     $num = getRandoms(countQuestion($mysqli), getQuestionGame($mysqli, $idGame));
     $select = "SELECT * FROM question WHERE Id = :id";
     $row = $mysqli->prepare($select);
-    $row->execute(array(':id' => $num));
-
+   $row->execute(array(':id' => $num));
     while ($row2 = $row->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
         $array[] = array(
             'IdPregunta' => $num,

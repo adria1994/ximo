@@ -10,9 +10,10 @@ function startGame() {
             token: localStorage.token
         },
         success: function (data) {
+            var item
             if (data.error == 0) {
                 $('#content').load('./game.html', function () {
-                    game(data.IdPregunta, data.Statement, data.Answer1, data.Answer2, data.Answer3, data.Answer4);
+                    game(data[0].IdPregunta, data[0].Statement, data[0].Answer1, data[0].Answer2, data[0].Answer3, data[0].Answer4);
                 });
             } else {
                 $('#errorCreateGame').html(data.errorMessage);
