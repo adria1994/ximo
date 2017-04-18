@@ -22,7 +22,7 @@ switch (@$_POST['funcion']){
 }
 
 function createGame($mysqli, $username, $token) {
-    $array = array();
+    $array = [];
     $array['error'] = 1;
     $array['finish'] = 0;
     $array['errorMessage'] = '';
@@ -40,12 +40,13 @@ function createGame($mysqli, $username, $token) {
             $row->execute(array(':id' => $idGame, ':name' => $username, ':token' => $token));
             if ($row->rowCount() == 1) {
                 $array['error'] = 0;
-                $random = getRandomQuestion($mysqli, $idGame);
 
-                if ($random != null)$array = array_merge($array, $random);
+                $random = getRandomQuestion($mysqli, $idGame)[0];
+                $array = array_merge($array, $random);
             }
         }
     } else $array['errorMessage'] = 'Sesion invalida';
+
     echo json_encode($array);
 }
 
@@ -69,7 +70,8 @@ function updateGame($mysqli, $username, $token, $idPregunta, $answer) {
         if ($row->rowCount() == 1) {
             if (finishGame($mysqli, $currentGame) != TRUE) {
                 $array['error'] = 0;
-                $array = array_merge($array, getRandomQuestion($mysqli, $currentGame)[0]);
+                $random = getRandomQuestion($mysqli, $currentGame)[0];
+                $array = array_merge($array, $random);
             }  else {
                 $array['error'] = 0;
                 $array['finish'] = 1;
@@ -83,10 +85,18 @@ function updateGame($mysqli, $username, $token, $idPregunta, $answer) {
 function getRandomQuestion($mysqli, $idGame) {
     $array = [];
 
-    $num = getRandoms(countQuestion($mysqli), getQuestionGame($mysqli, $idGame));
+    $idAllQuestions = countQuestion($mysqli);
+    $randomQuestion = getQuestionGame($mysqli, $idGame);
+
+    if ($randomQuestion != null) {
+        $num = getRandoms($idAllQuestions, $randomQuestion);
+    } else {
+        $num = $idAllQuestions[rand(1,sizeof($idAllQuestions))];
+    }
     $select = "SELECT * FROM question WHERE Id = :id";
     $row = $mysqli->prepare($select);
-   $row->execute(array(':id' => $num));
+    $row->execute(array(':id' => $num));
+
     while ($row2 = $row->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
         $array[] = array(
             'IdPregunta' => $num,
@@ -97,15 +107,20 @@ function getRandomQuestion($mysqli, $idGame) {
             'Answer4' => $row2['Answer4'],
         );
     }
-
     return $array;
 }
 
 function countQuestion($mysqli) {
-    $select = "SELECT COUNT(*) as cantidad FROM question";
+    $array = [];
+    $select = "SELECT Id FROM question";
     $row = $mysqli->prepare($select);
     $row->execute();
-    return $row->fetch()['cantidad'];
+    if($row->rowCount() > 0) {
+        while ($row2 = $row->fetch(PDO::FETCH_ASSOC, PDO::FETCH_ORI_NEXT)) {
+            $array[] = $row2['Id'];
+        }
+    }
+    return $array;
 }
 
 function getQuestionGame($mysqli, $id) {
@@ -143,4 +158,4 @@ function getCurrentGame($mysqli, $name, $token) {
     return $row->rowCount() == 1 ? $row->fetch()['CurrentGame'] : -1;
 }
 
-//$mysqli = null;
+$mysqli = null;
