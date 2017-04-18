@@ -20,6 +20,7 @@ function checkToken($mysqli, $name, $token) {
         $response['auth'] = 1;
         $response['id'] = $data['Id'];
         $response['token'] = $data['Token'];
+        $response["rol"] = $data["Rol"];
     } else {
         $response['auth'] = 0;
     }

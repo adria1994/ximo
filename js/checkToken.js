@@ -16,7 +16,7 @@ function checkToken(){
             if(data.auth == 1) {
                 localStorage.auth = 1;
                 localStorage.token = data.token;
-                auth();
+                auth(data.rol);
             } else {
                 localStorage.auth = 0;
                 localStorage.token = '';
@@ -31,15 +31,27 @@ function checkToken(){
     return true;
 }
 
-function auth() {
-    $('#menu').html('')
-        .append('<li><a>' + localStorage.username +'</a></li>')
-        .append('<li><a id="logout">Salir</a></li>');
+function auth(rol) {
+    if(rol == "admin") {
+        $('#menu').html('')
+            .append('<li><a id="profile">' + localStorage.username + '</a></li>')
+            .append('<li><a id="adminZone">Zona admin</a></li>')
+            .append('<li><a id="logout">Salir</a></li>');
+        $("#adminZone").click(function(){
+            $(location).attr('href','./adminZone.html');
+        });
 
-    $("#logout").click(function() {
+    } else {
+        $('#menu').html('')
+            .append('<li><a id="profile">' + localStorage.username + '</a></li>')
+            .append('<li><a id="logout">Salir</a></li>');
+    }
+    $("#profile").click(function(){
+        $('#content').load('userProfile.html');
+    });
+    $("#logout").click(function () {
         logout();
     });
-
     $('#content').load('./startGame.html');
 }
 

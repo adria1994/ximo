@@ -11,6 +11,8 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
 </head>
 <body class="admin">
+<button id="gameZone" class="btn btn-response">Volver al juego</button>
+</ul>
 <div class="container">
     <h2>Administración de preguntas</h2>
     <hr>
@@ -64,6 +66,9 @@
     $('#editUser').click(function(){
         editQuestion();
     });
+    $("#gameZone").click(function(){
+        $(location).attr('href','./register.html');
+    })
 </script>
 </body>
 </html>
