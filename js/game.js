@@ -72,18 +72,3 @@ function updateGame(IdPregunta, answer) {
         }
     });
 }
-function sameWidthButtons() {
-
-    var greatestWidth = 0;
-
-    $('.gamebutton').each(function() {
-
-        var width = $(this).width();
-
-        if( width < greatestWidth) {
-            greatestWidth = width;
-        }
-    });
-
-    $('.gamebutton').width(greatestWidth);
-}
