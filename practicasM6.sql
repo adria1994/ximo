@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 18-04-2017 a las 20:33:48
+-- Tiempo de generación: 18-04-2017 a las 20:55:52
 -- Versión del servidor: 5.7.17-0ubuntu0.16.04.1
 -- Versión de PHP: 7.0.15-0ubuntu0.16.04.4
 
@@ -5407,6 +5407,16 @@ CREATE TABLE `game` (
   `Id_user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `game`
+--
+
+INSERT INTO `game` (`Id`, `Fecha`, `Edad`, `Id_user`) VALUES
+(1, '2017-04-18', NULL, 1),
+(2, '2017-04-18', NULL, 1),
+(3, '2017-04-18', NULL, 1),
+(4, '2017-04-18', NULL, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -5423,6 +5433,13 @@ CREATE TABLE `question` (
   `CorrectAnswer` int(1) NOT NULL,
   `IdTheme` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `question`
+--
+
+INSERT INTO `question` (`Id`, `Statement`, `Answer1`, `Answer2`, `Answer3`, `Answer4`, `CorrectAnswer`, `IdTheme`) VALUES
+(1, 'Capital de España', 'Barcelona', 'Madrid', 'Sevilla', 'Singapour', 2, 4);
 
 -- --------------------------------------------------------
 
@@ -5480,9 +5497,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`Id`, `Username`, `Password`, `Token`, `Rol`, `Email`, `DateBorn`, `IdCity`, `CurrentGame`) VALUES
-(1, 'pepe', 'Pepe', NULL, 'user', 'pepe@gmail.com', '2017-04-01', 129, NULL),
+(1, 'pepe', 'Pepe', NULL, 'user', 'pepe@gmail.com', '2017-04-01', 129, 4),
 (2, 'pepa', 'Pepa', NULL, 'user', 'pepa@gmail.com', '2017-04-01', 129, NULL),
-(3, 'superpepe', '12345', NULL, 'admin', 'superpepe@gmail.com', '2017-04-01', 129, NULL);
+(3, 'superpepe', '12345', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0OTI1NDQxMjUsImF1ZCI6ImY0MzMxMGEzMjM4ZjM3MTk1ZGRjNTFjN2U0OTdhNDRmMjVlOTI4NTgiLCJkYXRhIjp7ImlkIjoiMyIsIm5hbWUiOiJzdXBlcnBlcGUifX0.OiPAbrPH7NroulyP9LSpfYqeKJ3-ijlHdLr4NciiHA8', 'admin', 'superpepe@gmail.com', '2017-04-01', 129, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -5557,12 +5574,12 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT de la tabla `game`
 --
 ALTER TABLE `game`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `question`
 --
 ALTER TABLE `question`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `theme`
 --
